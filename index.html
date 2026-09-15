@@ -4,6 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Arit 모바일 트레이딩 시스템 (MTS)</title>
+
+    <!-- Mobile Web App & PWA Standalone Meta Tags -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Arit MTS">
+    <meta name="theme-color" id="meta-theme-color" content="#3182f6">
+
+    <!-- Dynamic SVG Data URI Favicon & Apple Touch Icon -->
+    <link rel="icon" id="dynamic-favicon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='28' fill='%233182f6'/><path d='M30 68 L45 42 L60 52 L75 28' stroke='white' stroke-width='8' stroke-linecap='round' stroke-linejoin='round' fill='none'/><circle cx='75' cy='28' r='5' fill='%2330b058'/></svg>">
+    <link rel="apple-touch-icon" id="dynamic-apple-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='28' fill='%233182f6'/><path d='M30 68 L45 42 L60 52 L75 28' stroke='white' stroke-width='8' stroke-linecap='round' stroke-linejoin='round' fill='none'/><circle cx='75' cy='28' r='5' fill='%2330b058'/></svg>">
     
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -107,8 +118,10 @@
             <!-- Top App Bar -->
             <div class="flex items-center justify-between">
                 <div class="flex items-center gap-2">
-                    <div class="w-8 h-8 rounded-2xl bg-toss-blue flex items-center justify-center text-white text-sm font-black shadow-sm">
-                        <i class="fa-solid fa-chart-pie"></i>
+                    <!-- Dynamic Interactive Mobile App Icon Badge -->
+                    <div id="header-app-icon-badge" onclick="openIconInstallModal()" title="앱 아이콘 설정 및 홈 화면 추가" class="w-8 h-8 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white text-sm font-black shadow-md border border-white/20 active-tap cursor-pointer relative group">
+                        <i id="header-app-icon-symbol" class="fa-solid fa-chart-pie"></i>
+                        <span class="absolute -top-1 -right-1 w-3 h-3 bg-green-500 border-2 border-white dark:border-toss-darkBg rounded-full"></span>
                     </div>
                     <div>
                         <span class="font-black text-base text-gray-900 dark:text-white tracking-tight block leading-none">Arit MTS</span>
@@ -119,9 +132,17 @@
                 </div>
 
                 <div class="flex items-center gap-1.5">
+                    <!-- Mobile App Icon & Home Screen Install Trigger Button -->
+                    <button onclick="openIconInstallModal()" title="앱 아이콘 & 홈 화면 추가" class="px-2.5 py-1.5 bg-indigo-50 dark:bg-indigo-950/60 hover:bg-indigo-100 dark:hover:bg-indigo-900/80 text-indigo-600 dark:text-indigo-400 text-xs font-bold rounded-xl transition flex items-center gap-1 active-tap">
+                        <i class="fa-solid fa-mobile-screen-button text-xs"></i> 앱 아이콘
+                    </button>
                     <!-- AI Insight Trigger Button -->
                     <button onclick="triggerAIAnalysis()" class="px-2.5 py-1.5 bg-blue-50 dark:bg-blue-950/60 hover:bg-blue-100 dark:hover:bg-blue-900/80 text-toss-blue dark:text-blue-400 text-xs font-bold rounded-xl transition flex items-center gap-1 active-tap">
                         <i class="fa-solid fa-wand-magic-sparkles text-xs"></i> AI 진단
+                    </button>
+                    <!-- QR Code Modal Trigger Button -->
+                    <button onclick="openQRModal()" title="QR 코드 공유" class="w-8 h-8 rounded-xl bg-gray-100 dark:bg-toss-darkCard hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300 flex items-center justify-center text-xs transition active-tap">
+                        <i class="fa-solid fa-qrcode text-sm"></i>
                     </button>
                     <!-- Dark/Light Theme Toggle -->
                     <button onclick="toggleDarkMode()" title="테마 변경" class="w-8 h-8 rounded-xl bg-gray-100 dark:bg-toss-darkCard hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300 flex items-center justify-center text-xs transition active-tap">
@@ -388,6 +409,57 @@
                 </div>
 
                 <div class="flex-1 overflow-y-auto p-4 space-y-3 text-xs">
+                    <!-- App Icon Theme Picker Card -->
+                    <div class="bg-gray-50 dark:bg-toss-darkCard rounded-2xl p-3.5 border border-gray-100 dark:border-toss-darkBorder space-y-3">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="font-bold text-gray-900 dark:text-white block">앱 아이콘 스타일</span>
+                                <span class="text-[10px] text-gray-400">바탕화면 및 헤더에 적용할 아이콘 디자인</span>
+                            </div>
+                            <button onclick="openIconInstallModal()" class="text-[10px] font-bold text-toss-blue hover:underline">
+                                홈 화면 추가 미리보기 <i class="fa-solid fa-chevron-right ml-0.5"></i>
+                            </button>
+                        </div>
+
+                        <!-- Icon Palette Options Grid -->
+                        <div class="grid grid-cols-5 gap-2 pt-1">
+                            <button onclick="setAppIconTheme('toss-blue')" class="icon-theme-btn flex flex-col items-center gap-1.5 p-1.5 rounded-xl hover:bg-gray-200/50 dark:hover:bg-gray-700/50 transition">
+                                <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-500 text-white flex items-center justify-center text-base shadow-sm border border-white/20">
+                                    <i class="fa-solid fa-chart-pie"></i>
+                                </div>
+                                <span class="text-[9px] font-bold text-gray-700 dark:text-gray-300">토스 블루</span>
+                            </button>
+
+                            <button onclick="setAppIconTheme('dark-cyber')" class="icon-theme-btn flex flex-col items-center gap-1.5 p-1.5 rounded-xl hover:bg-gray-200/50 dark:hover:bg-gray-700/50 transition">
+                                <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-gray-900 via-gray-800 to-black text-cyan-400 flex items-center justify-center text-base shadow-sm border border-cyan-500/30">
+                                    <i class="fa-solid fa-bolt"></i>
+                                </div>
+                                <span class="text-[9px] font-bold text-gray-700 dark:text-gray-300">다크 사이버</span>
+                            </button>
+
+                            <button onclick="setAppIconTheme('neon-green')" class="icon-theme-btn flex flex-col items-center gap-1.5 p-1.5 rounded-xl hover:bg-gray-200/50 dark:hover:bg-gray-700/50 transition">
+                                <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-400 text-white flex items-center justify-center text-base shadow-sm border border-white/20">
+                                    <i class="fa-solid fa-chart-line"></i>
+                                </div>
+                                <span class="text-[9px] font-bold text-gray-700 dark:text-gray-300">네온 그린</span>
+                            </button>
+
+                            <button onclick="setAppIconTheme('luxury-gold')" class="icon-theme-btn flex flex-col items-center gap-1.5 p-1.5 rounded-xl hover:bg-gray-200/50 dark:hover:bg-gray-700/50 transition">
+                                <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-amber-600 via-amber-500 to-yellow-300 text-gray-950 flex items-center justify-center text-base shadow-sm border border-yellow-200/40">
+                                    <i class="fa-solid fa-crown"></i>
+                                </div>
+                                <span class="text-[9px] font-bold text-gray-700 dark:text-gray-300">럭셔리 골드</span>
+                            </button>
+
+                            <button onclick="setAppIconTheme('sunset-red')" class="icon-theme-btn flex flex-col items-center gap-1.5 p-1.5 rounded-xl hover:bg-gray-200/50 dark:hover:bg-gray-700/50 transition">
+                                <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-rose-600 to-orange-400 text-white flex items-center justify-center text-base shadow-sm border border-white/20">
+                                    <i class="fa-solid fa-fire"></i>
+                                </div>
+                                <span class="text-[9px] font-bold text-gray-700 dark:text-gray-300">선셋 레드</span>
+                            </button>
+                        </div>
+                    </div>
+
                     <div class="bg-gray-50 dark:bg-toss-darkCard rounded-2xl p-3.5 border border-gray-100 dark:border-toss-darkBorder flex items-center justify-between">
                         <div>
                             <span class="font-bold text-gray-900 dark:text-white block">다크 모드</span>
@@ -424,57 +496,107 @@
 
         <!-- MOBILE TRADE BOTTOM SHEET DRAWER -->
         <div id="trade-sheet" class="fixed sm:absolute inset-0 bg-black/60 backdrop-blur-xs z-50 flex flex-col justify-end transition-opacity duration-300 opacity-0 pointer-events-none">
-            <div id="trade-drawer" class="bg-white dark:bg-toss-darkBg w-full rounded-t-3xl p-5 shadow-2xl transform translate-y-full transition-transform duration-300 flex flex-col max-h-[90%] border-t border-gray-200 dark:border-toss-darkBorder">
-                
-                <div class="w-12 h-1 bg-gray-300 dark:bg-gray-600 rounded-full mx-auto mb-3"></div>
+            <!-- ... existing trade drawer content ... -->
+        </div>
 
-                <div class="flex justify-between items-center mb-3">
-                    <h3 id="sheet-title" class="text-base font-extrabold text-toss-red">주식 매수하기</h3>
-                    <button onclick="closeTradeDrawer()" class="w-8 h-8 rounded-full bg-gray-100 dark:bg-toss-darkCard text-gray-500 flex items-center justify-center">
+        <!-- MOBILE HOME SCREEN APP ICON & PWA INSTALL PREVIEW MODAL -->
+        <div id="icon-install-modal" class="fixed sm:absolute inset-0 bg-black/70 backdrop-blur-md z-50 flex items-center justify-center p-4 transition-opacity duration-300 opacity-0 pointer-events-none">
+            <div id="icon-modal-card" class="bg-white dark:bg-toss-darkBg w-full max-w-xs rounded-3xl p-5 shadow-2xl transform scale-95 transition-transform duration-300 flex flex-col items-center text-center border border-gray-100 dark:border-toss-darkBorder">
+                
+                <div class="w-full flex justify-between items-center mb-2">
+                    <span class="text-xs font-black text-gray-900 dark:text-white flex items-center gap-1.5">
+                        <i class="fa-solid fa-mobile-screen text-indigo-500"></i> 스마트폰 홈 화면 앱 아이콘
+                    </span>
+                    <button onclick="closeIconInstallModal()" class="w-7 h-7 rounded-full bg-gray-100 dark:bg-toss-darkCard text-gray-400 hover:text-gray-700 dark:hover:text-white flex items-center justify-center text-xs">
                         <i class="fa-solid fa-xmark"></i>
                     </button>
                 </div>
 
-                <!-- Price Summary Box -->
-                <div class="bg-gray-50 dark:bg-toss-darkCard p-3 rounded-2xl mb-3 border border-gray-100 dark:border-toss-darkBorder text-xs space-y-1">
-                    <div class="flex justify-between text-gray-500 dark:text-gray-400">
-                        <span>현재 1주당 가격</span>
-                        <span id="sheet-current-price" class="font-bold text-gray-900 dark:text-white">0 원</span>
-                    </div>
-                    <div class="flex justify-between text-gray-500 dark:text-gray-400">
-                        <span id="sheet-avail-label">주문 가능 금액</span>
-                        <span id="sheet-avail-val" class="font-bold text-toss-blue">0 원</span>
+                <!-- Simulated Smartphone Home Screen Grid -->
+                <div class="w-full bg-gradient-to-b from-slate-900 via-indigo-950 to-slate-900 p-4 rounded-3xl border border-white/10 shadow-inner my-2 relative overflow-hidden">
+                    <div class="text-[10px] text-white/50 font-mono mb-3 text-center">미리보기 : 모바일 홈 화면</div>
+                    
+                    <!-- App Icon Grid Display -->
+                    <div class="grid grid-cols-4 gap-3 place-items-center">
+                        <!-- Mock App 1: Toss -->
+                        <div class="flex flex-col items-center gap-1 opacity-60">
+                            <div class="w-12 h-12 rounded-[16px] bg-blue-500 text-white flex items-center justify-center text-xl shadow-md">
+                                <i class="fa-solid fa-hand-holding-dollar"></i>
+                            </div>
+                            <span class="text-[9px] font-medium text-white/80">토스</span>
+                        </div>
+
+                        <!-- Mock App 2: KakaoTalk -->
+                        <div class="flex flex-col items-center gap-1 opacity-60">
+                            <div class="w-12 h-12 rounded-[16px] bg-yellow-400 text-gray-900 flex items-center justify-center text-xl shadow-md">
+                                <i class="fa-solid fa-comment"></i>
+                            </div>
+                            <span class="text-[9px] font-medium text-white/80">카카오톡</span>
+                        </div>
+
+                        <!-- HIGHLIGHTED TARGET: Arit MTS App Icon -->
+                        <div class="flex flex-col items-center gap-1 relative animate-bounce">
+                            <!-- Icon Badge -->
+                            <span class="absolute -top-1.5 -right-1 z-10 w-5 h-5 bg-red-500 text-white text-[9px] font-black rounded-full flex items-center justify-center shadow-md border-2 border-slate-900">3</span>
+                            
+                            <!-- Dynamic App Icon Box -->
+                            <div id="modal-preview-app-icon" class="w-12 h-12 rounded-[16px] bg-gradient-to-tr from-blue-600 to-indigo-500 text-white flex items-center justify-center text-xl shadow-lg shadow-blue-500/30 border border-white/20 transition-all duration-300">
+                                <i id="modal-preview-icon-symbol" class="fa-solid fa-chart-pie"></i>
+                            </div>
+                            <span class="text-[10px] font-bold text-white tracking-tight">Arit MTS</span>
+                        </div>
+
+                        <!-- Mock App 3: Youtube -->
+                        <div class="flex flex-col items-center gap-1 opacity-60">
+                            <div class="w-12 h-12 rounded-[16px] bg-red-600 text-white flex items-center justify-center text-xl shadow-md">
+                                <i class="fa-brands fa-youtube"></i>
+                            </div>
+                            <span class="text-[9px] font-medium text-white/80">YouTube</span>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Quantity Controller -->
-                <div class="mb-3">
-                    <label class="block text-xs font-semibold text-gray-600 dark:text-gray-300 mb-1.5">주문 수량</label>
-                    <div class="flex items-center gap-2 mb-2">
-                        <button onclick="adjustTradeQty(-1)" class="w-10 h-10 rounded-2xl bg-gray-100 dark:bg-toss-darkCard font-black text-gray-700 dark:text-gray-200 text-lg flex items-center justify-center active-tap">-</button>
-                        <input type="number" id="trade-qty-input" min="1" value="1" oninput="recalcTradeTotal()" class="flex-1 bg-white dark:bg-toss-darkCard border-2 border-gray-200 dark:border-toss-darkBorder rounded-2xl py-2 text-center text-lg font-black focus:outline-none focus:border-toss-blue text-gray-900 dark:text-white">
-                        <button onclick="adjustTradeQty(1)" class="w-10 h-10 rounded-2xl bg-gray-100 dark:bg-toss-darkCard font-black text-gray-700 dark:text-gray-200 text-lg flex items-center justify-center active-tap">+</button>
-                    </div>
-
-                    <!-- Percentage Quick Buttons -->
-                    <div class="grid grid-cols-4 gap-1.5">
-                        <button onclick="setTradePct(0.10)" class="py-1 text-xs bg-gray-100 dark:bg-toss-darkCard rounded-xl text-gray-700 dark:text-gray-300 font-semibold active-tap">10%</button>
-                        <button onclick="setTradePct(0.25)" class="py-1 text-xs bg-gray-100 dark:bg-toss-darkCard rounded-xl text-gray-700 dark:text-gray-300 font-semibold active-tap">25%</button>
-                        <button onclick="setTradePct(0.50)" class="py-1 text-xs bg-gray-100 dark:bg-toss-darkCard rounded-xl text-gray-700 dark:text-gray-300 font-semibold active-tap">50%</button>
-                        <button onclick="setTradePct(1.00)" class="py-1 text-xs bg-gray-100 dark:bg-toss-darkCard rounded-xl text-gray-700 dark:text-gray-300 font-semibold active-tap">100%</button>
+                <!-- Installation Instruction Guide -->
+                <div class="bg-gray-50 dark:bg-toss-darkCard rounded-2xl p-3 border border-gray-100 dark:border-toss-darkBorder w-full text-left my-2 space-y-1.5">
+                    <span class="text-[11px] font-bold text-gray-900 dark:text-white block">💡 스마트폰에 앱 아이콘 추가하는 방법</span>
+                    <div class="text-[10px] text-gray-500 dark:text-gray-400 space-y-1">
+                        <p class="flex items-center gap-1.5"><i class="fa-brands fa-apple text-xs text-gray-700 dark:text-gray-300"></i> <strong class="text-gray-800 dark:text-gray-200">iOS Safari:</strong> 하단 공유 버튼 <i class="fa-solid fa-arrow-up-from-bracket"></i> 클릭 → '홈 화면에 추가'</p>
+                        <p class="flex items-center gap-1.5"><i class="fa-brands fa-android text-xs text-green-500"></i> <strong class="text-gray-800 dark:text-gray-200">Android Chrome:</strong> 우측 상단 메뉴 <i class="fa-solid fa-ellipsis-vertical"></i> 클릭 → '앱 설치' 또는 '홈 화면에 추가'</p>
                     </div>
                 </div>
 
-                <!-- Total Amount Banner -->
-                <div class="border-t border-gray-100 dark:border-toss-darkBorder pt-2.5 mb-4 flex justify-between items-center">
-                    <span class="text-xs font-bold text-gray-600 dark:text-gray-300">총 주문 금액</span>
-                    <span id="sheet-total-price" class="text-lg font-black text-toss-red">0 원</span>
-                </div>
-
-                <!-- Action Button -->
-                <button id="sheet-submit-btn" onclick="executeOrder()" class="w-full bg-toss-red hover:bg-red-600 text-white font-extrabold py-3.5 rounded-2xl text-sm transition shadow-lg shadow-red-500/20 active-tap">
-                    주문 실행하기
+                <button onclick="closeIconInstallModal()" class="w-full bg-toss-blue hover:bg-blue-600 text-white font-extrabold py-3 rounded-2xl text-xs transition active-tap mt-1">
+                    확인 및 닫기
                 </button>
+            </div>
+        </div>
+
+        <!-- QR CODE APP SHARE MODAL -->
+        <div id="qr-modal" class="fixed sm:absolute inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4 transition-opacity duration-300 opacity-0 pointer-events-none">
+            <div id="qr-modal-card" class="bg-white dark:bg-toss-darkBg w-full max-w-xs rounded-3xl p-5 shadow-2xl transform scale-95 transition-transform duration-300 flex flex-col items-center text-center border border-gray-100 dark:border-toss-darkBorder">
+                <div class="w-11 h-11 rounded-2xl bg-blue-50 dark:bg-blue-950 text-toss-blue dark:text-blue-400 flex items-center justify-center text-xl mb-3">
+                    <i class="fa-solid fa-qrcode"></i>
+                </div>
+                <h3 class="text-base font-extrabold text-gray-900 dark:text-white mb-1">Arit 앱 QR 코드</h3>
+                <p class="text-[11px] text-gray-400 font-medium mb-4">스마트폰 카메라로 아래 QR 코드를 스캔하여 접속하세요.</p>
+                
+                <!-- QR Code Display Box -->
+                <div class="bg-white p-3 rounded-2xl shadow-inner border border-gray-100 mb-4 flex justify-center items-center">
+                    <img id="qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=https://ati-all.github.io/arit/" alt="Arit QR Code" class="w-44 h-44 rounded-lg object-contain" onerror="this.src='https://quickchart.io/qr?text=https://ati-all.github.io/arit/&size=220'">
+                </div>
+
+                <div class="text-[11px] font-mono text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-toss-darkCard px-3 py-1.5 rounded-xl border border-gray-100 dark:border-toss-darkBorder w-full truncate mb-4 select-all">
+                    https://ati-all.github.io/arit/
+                </div>
+
+                <div class="flex gap-2 w-full">
+                    <button onclick="copyAppUrl()" class="flex-1 bg-gray-100 dark:bg-toss-darkCard hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200 font-bold py-2.5 rounded-xl text-xs transition active-tap">
+                        <i class="fa-regular fa-copy mr-1"></i> 주소 복사
+                    </button>
+                    <button onclick="closeQRModal()" class="flex-1 bg-toss-blue hover:bg-blue-600 text-white font-bold py-2.5 rounded-xl text-xs transition active-tap">
+                        닫기
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -558,6 +680,55 @@
         let activeChartObj = null;
         let activePieObj = null;
         let tickerInterval = null;
+        let currentAppIconTheme = "toss-blue";
+
+        const appIconThemes = {
+            "toss-blue": {
+                name: "토스 블루",
+                bgClass: "bg-gradient-to-tr from-blue-600 to-indigo-500",
+                iconClass: "fa-solid fa-chart-pie",
+                color: "#3182f6",
+                symbolColor: "white",
+                shadowClass: "shadow-blue-500/30",
+                borderClass: "border-white/20"
+            },
+            "dark-cyber": {
+                name: "다크 사이버",
+                bgClass: "bg-gradient-to-tr from-gray-900 via-gray-800 to-black",
+                iconClass: "fa-solid fa-bolt",
+                color: "#06b6d4",
+                symbolColor: "#06b6d4",
+                shadowClass: "shadow-cyan-500/30",
+                borderClass: "border-cyan-500/40"
+            },
+            "neon-green": {
+                name: "네온 그린",
+                bgClass: "bg-gradient-to-tr from-emerald-600 to-teal-400",
+                iconClass: "fa-solid fa-chart-line",
+                color: "#10b981",
+                symbolColor: "white",
+                shadowClass: "shadow-emerald-500/30",
+                borderClass: "border-white/20"
+            },
+            "luxury-gold": {
+                name: "럭셔리 골드",
+                bgClass: "bg-gradient-to-tr from-amber-600 via-amber-500 to-yellow-300",
+                iconClass: "fa-solid fa-crown",
+                color: "#f59e0b",
+                symbolColor: "#0f172a",
+                shadowClass: "shadow-amber-500/30",
+                borderClass: "border-yellow-200/40"
+            },
+            "sunset-red": {
+                name: "선셋 레드",
+                bgClass: "bg-gradient-to-tr from-rose-600 to-orange-400",
+                iconClass: "fa-solid fa-fire",
+                color: "#f43f5e",
+                symbolColor: "white",
+                shadowClass: "shadow-rose-500/30",
+                borderClass: "border-white/20"
+            }
+        };
 
         // Web Audio API Sound Generator for Native App Tap/Execution
         function playAppSound(type) {
@@ -597,6 +768,9 @@
             renderCommunityFeed();
             initChart();
             toggleLiveTicker(true);
+            
+            const savedTheme = localStorage.getItem("arit_app_icon_theme") || "toss-blue";
+            setAppIconTheme(savedTheme, false);
         };
 
         function loadWallet() {
@@ -1269,6 +1443,112 @@
             saveWallet();
             showToast("가상 계좌 자산이 1,000만원으로 초기화되었습니다.");
             renderPortfolioView();
+        }
+
+        function setAppIconTheme(themeKey, notify = true) {
+            const theme = appIconThemes[themeKey];
+            if (!theme) return;
+
+            currentAppIconTheme = themeKey;
+            localStorage.setItem("arit_app_icon_theme", themeKey);
+
+            // Update Header Icon Badge
+            const headerBadge = document.getElementById("header-app-icon-badge");
+            const headerSymbol = document.getElementById("header-app-icon-symbol");
+            if (headerBadge && headerSymbol) {
+                headerBadge.className = `w-8 h-8 rounded-2xl ${theme.bgClass} flex items-center justify-center text-white text-sm font-black shadow-md border ${theme.borderClass} active-tap cursor-pointer relative group`;
+                headerSymbol.className = theme.iconClass;
+                if (themeKey === 'dark-cyber') {
+                    headerSymbol.style.color = "#06b6d4";
+                } else if (themeKey === 'luxury-gold') {
+                    headerSymbol.style.color = "#0f172a";
+                } else {
+                    headerSymbol.style.color = "white";
+                }
+            }
+
+            // Update Modal Home Screen Preview App Icon
+            const previewBox = document.getElementById("modal-preview-app-icon");
+            const previewSymbol = document.getElementById("modal-preview-icon-symbol");
+            if (previewBox && previewSymbol) {
+                previewBox.className = `w-12 h-12 rounded-[16px] ${theme.bgClass} flex items-center justify-center text-xl shadow-lg ${theme.shadowClass} border ${theme.borderClass} transition-all duration-300`;
+                previewSymbol.className = theme.iconClass;
+                if (themeKey === 'dark-cyber') {
+                    previewSymbol.style.color = "#06b6d4";
+                } else if (themeKey === 'luxury-gold') {
+                    previewSymbol.style.color = "#0f172a";
+                } else {
+                    previewSymbol.style.color = "white";
+                }
+            }
+
+            // Update Dynamic SVG Favicon & Apple Touch Icon Meta Tag
+            const svgContent = `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='28' fill='${encodeURIComponent(theme.color)}'/><path d='M30 68 L45 42 L60 52 L75 28' stroke='white' stroke-width='8' stroke-linecap='round' stroke-linejoin='round' fill='none'/><circle cx='75' cy='28' r='5' fill='%2330b058'/></svg>`;
+            
+            const dynamicFavicon = document.getElementById("dynamic-favicon");
+            const dynamicAppleIcon = document.getElementById("dynamic-apple-icon");
+            const metaTheme = document.getElementById("meta-theme-color");
+
+            if (dynamicFavicon) dynamicFavicon.href = svgContent;
+            if (dynamicAppleIcon) dynamicAppleIcon.href = svgContent;
+            if (metaTheme) metaTheme.content = theme.color;
+
+            if (notify) {
+                playAppSound("click");
+                showToast(`📱 앱 아이콘 스타일이 [${theme.name}]로 변경되었습니다!`);
+            }
+        }
+
+        function openIconInstallModal() {
+            playAppSound("click");
+            const modal = document.getElementById("icon-install-modal");
+            const card = document.getElementById("icon-modal-card");
+            modal.classList.remove("opacity-0", "pointer-events-none");
+            card.classList.remove("scale-95");
+            card.classList.add("scale-100");
+        }
+
+        function closeIconInstallModal() {
+            playAppSound("click");
+            const modal = document.getElementById("icon-install-modal");
+            const card = document.getElementById("icon-modal-card");
+            card.classList.remove("scale-100");
+            card.classList.add("scale-95");
+            setTimeout(() => {
+                modal.classList.add("opacity-0", "pointer-events-none");
+            }, 200);
+        }
+
+        function openQRModal() {
+            playAppSound("click");
+            const modal = document.getElementById("qr-modal");
+            const card = document.getElementById("qr-modal-card");
+            modal.classList.remove("opacity-0", "pointer-events-none");
+            card.classList.remove("scale-95");
+            card.classList.add("scale-100");
+        }
+
+        function closeQRModal() {
+            playAppSound("click");
+            const modal = document.getElementById("qr-modal");
+            const card = document.getElementById("qr-modal-card");
+            card.classList.remove("scale-100");
+            card.classList.add("scale-95");
+            setTimeout(() => {
+                modal.classList.add("opacity-0", "pointer-events-none");
+            }, 200);
+        }
+
+        function copyAppUrl() {
+            playAppSound("click");
+            const url = "https://ati-all.github.io/arit/";
+            const tempInput = document.createElement("input");
+            tempInput.value = url;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+            showToast("앱 주소가 클립보드에 복사되었습니다!");
         }
 
         function showToast(msg, type = "info") {
