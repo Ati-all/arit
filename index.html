@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Arit 모바일 트레이딩 시스템 (MTS)</title>
 
-    <!-- Mobile Web App & PWA Standalone Meta Tags -->
+    <!-- PWA & Mobile Web App Meta Tags -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -55,12 +55,11 @@
             touch-action: manipulation;
         }
 
-        /* Custom Scrollbars */
+        /* Scrollbar styles */
         ::-webkit-scrollbar {
             width: 0px;
             height: 0px;
         }
-
         .no-scrollbar::-webkit-scrollbar {
             display: none;
         }
@@ -100,7 +99,7 @@
             background-color: rgba(49, 130, 246, 0.25);
         }
 
-        /* Native App Feel Ripple & Touch Effects */
+        /* Active touch feedbacks */
         .active-tap:active {
             transform: scale(0.97);
             opacity: 0.9;
@@ -110,15 +109,13 @@
 </head>
 <body class="bg-gray-100 dark:bg-black text-gray-900 dark:text-gray-100 h-full flex justify-center items-center overflow-hidden transition-colors duration-200">
 
-    <!-- App Main Container (Sleek Smartphone Frame on Desktop, Native Screen on Mobile) -->
+    <!-- App Main Container -->
     <main id="app-shell" class="relative w-full max-w-md h-full sm:h-[880px] bg-white dark:bg-toss-darkBg sm:rounded-[48px] sm:shadow-2xl overflow-hidden flex flex-col border-0 sm:border-[8px] sm:border-gray-800 dark:sm:border-gray-700">
 
-        <!-- Native Status Bar & App Header Header -->
+        <!-- App Header Bar -->
         <header class="bg-white/95 dark:bg-toss-darkBg/95 backdrop-blur-md border-b border-gray-100 dark:border-toss-darkBorder px-4 pt-3 pb-2.5 sticky top-0 z-40 flex flex-col gap-2 shrink-0">
-            <!-- Top App Bar -->
             <div class="flex items-center justify-between">
                 <div class="flex items-center gap-2">
-                    <!-- Dynamic Interactive Mobile App Icon Badge -->
                     <div id="header-app-icon-badge" onclick="openIconInstallModal()" title="앱 아이콘 설정 및 홈 화면 추가" class="w-8 h-8 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white text-sm font-black shadow-md border border-white/20 active-tap cursor-pointer relative group">
                         <i id="header-app-icon-symbol" class="fa-solid fa-chart-pie"></i>
                         <span class="absolute -top-1 -right-1 w-3 h-3 bg-green-500 border-2 border-white dark:border-toss-darkBg rounded-full"></span>
@@ -132,19 +129,15 @@
                 </div>
 
                 <div class="flex items-center gap-1.5">
-                    <!-- Mobile App Icon & Home Screen Install Trigger Button -->
                     <button onclick="openIconInstallModal()" title="앱 아이콘 & 홈 화면 추가" class="px-2.5 py-1.5 bg-indigo-50 dark:bg-indigo-950/60 hover:bg-indigo-100 dark:hover:bg-indigo-900/80 text-indigo-600 dark:text-indigo-400 text-xs font-bold rounded-xl transition flex items-center gap-1 active-tap">
                         <i class="fa-solid fa-mobile-screen-button text-xs"></i> 앱 아이콘
                     </button>
-                    <!-- AI Insight Trigger Button -->
                     <button onclick="triggerAIAnalysis()" class="px-2.5 py-1.5 bg-blue-50 dark:bg-blue-950/60 hover:bg-blue-100 dark:hover:bg-blue-900/80 text-toss-blue dark:text-blue-400 text-xs font-bold rounded-xl transition flex items-center gap-1 active-tap">
                         <i class="fa-solid fa-wand-magic-sparkles text-xs"></i> AI 진단
                     </button>
-                    <!-- QR Code Modal Trigger Button -->
                     <button onclick="openQRModal()" title="QR 코드 공유" class="w-8 h-8 rounded-xl bg-gray-100 dark:bg-toss-darkCard hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300 flex items-center justify-center text-xs transition active-tap">
                         <i class="fa-solid fa-qrcode text-sm"></i>
                     </button>
-                    <!-- Dark/Light Theme Toggle -->
                     <button onclick="toggleDarkMode()" title="테마 변경" class="w-8 h-8 rounded-xl bg-gray-100 dark:bg-toss-darkCard hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300 flex items-center justify-center text-xs transition active-tap">
                         <i class="fa-solid fa-moon dark:hidden"></i>
                         <i class="fa-solid fa-sun hidden dark:inline text-amber-400"></i>
@@ -179,9 +172,9 @@
         <!-- VIEW ROUTER CONTAINER -->
         <div class="relative flex-1 overflow-hidden bg-white dark:bg-toss-darkBg">
 
-            <!-- PAGE 1: STOCK EXPLORER VIEW (주식 탐색) -->
+            <!-- PAGE 1: STOCK EXPLORER VIEW -->
             <div id="view-home" class="app-screen absolute inset-0 flex flex-col transition-all duration-200 z-10 bg-white dark:bg-toss-darkBg">
-                <!-- Market Type Switcher Tabs (해외주식 / 국내주식 / 관심) -->
+                <!-- Market Type Switcher Tabs -->
                 <div class="px-4 pt-2 bg-white dark:bg-toss-darkBg border-b border-gray-100 dark:border-toss-darkBorder">
                     <div class="flex gap-6 text-sm font-bold text-gray-400 dark:text-gray-500">
                         <button onclick="switchTab('overseas')" id="tab-overseas" class="tab-btn active pb-2 border-b-2 border-gray-900 dark:border-white text-gray-900 dark:text-white">해외주식</button>
@@ -192,106 +185,109 @@
 
                 <!-- Quick Category Filters -->
                 <div class="px-4 py-2 bg-white dark:bg-toss-darkBg flex gap-2 overflow-x-auto no-scrollbar border-b border-gray-50 dark:border-toss-darkBorder text-xs shrink-0">
-                    <button onclick="filterCategory('all')" class="cat-chip px-3 py-1.5 rounded-full font-bold bg-gray-900 text-white dark:bg-white dark:text-black transition">전체</button>
-                    <button onclick="filterCategory('gainer')" class="cat-chip px-3 py-1.5 rounded-full font-semibold bg-gray-100 text-gray-600 dark:bg-toss-darkCard dark:text-gray-300 transition">🔥 급상승</button>
-                    <button onclick="filterCategory('popular')" class="cat-chip px-3 py-1.5 rounded-full font-semibold bg-gray-100 text-gray-600 dark:bg-toss-darkCard dark:text-gray-300 transition">👑 인기 많은</button>
-                    <button onclick="filterCategory('volume')" class="cat-chip px-3 py-1.5 rounded-full font-semibold bg-gray-100 text-gray-600 dark:bg-toss-darkCard dark:text-gray-300 transition">📊 거래량 상위</button>
+                    <button onclick="filterCategory('all')" id="cat-all" class="cat-chip px-3 py-1.5 rounded-full font-bold bg-gray-900 text-white dark:bg-white dark:text-black transition">전체</button>
+                    <button onclick="filterCategory('gainer')" id="cat-gainer" class="cat-chip px-3 py-1.5 rounded-full font-semibold bg-gray-100 text-gray-600 dark:bg-toss-darkCard dark:text-gray-300 transition">🔥 급상승</button>
+                    <button onclick="filterCategory('popular')" id="cat-popular" class="cat-chip px-3 py-1.5 rounded-full font-semibold bg-gray-100 text-gray-600 dark:bg-toss-darkCard dark:text-gray-300 transition">👑 인기 많은</button>
+                    <button onclick="filterCategory('volume')" id="cat-volume" class="cat-chip px-3 py-1.5 rounded-full font-semibold bg-gray-100 text-gray-600 dark:bg-toss-darkCard dark:text-gray-300 transition">📊 거래량 상위</button>
                 </div>
 
                 <!-- Search Stock Bar -->
                 <div class="px-4 py-2 bg-gray-50 dark:bg-toss-darkCard/50 border-b border-gray-100 dark:border-toss-darkBorder shrink-0">
                     <div class="relative">
                         <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-gray-400 text-xs"></i>
-                        <input type="text" id="stock-search" onkeyup="renderStockList()" placeholder="종목명, 티커, 관련 키워드 검색..." class="w-full bg-white dark:bg-toss-darkCard border border-gray-200 dark:border-toss-darkBorder rounded-2xl pl-9 pr-3 py-2 text-xs focus:outline-none focus:border-toss-blue text-gray-900 dark:text-white transition shadow-2xs">
+                        <input type="text" id="stock-search" onkeyup="renderStockList()" placeholder="종목명, 티커, 섹터 검색..." class="w-full bg-white dark:bg-toss-darkCard border border-gray-200 dark:border-toss-darkBorder rounded-2xl pl-9 pr-3 py-2 text-xs focus:outline-none focus:border-toss-blue text-gray-900 dark:text-white transition shadow-2xs">
                     </div>
                 </div>
 
                 <!-- Scrollable Stock List Feed -->
                 <div id="stock-list-feed" class="flex-1 overflow-y-auto px-4 py-2 divide-y divide-gray-50 dark:divide-toss-darkBorder">
-                    <!-- Dynamic Stocks Rendered via JS -->
+                    <!-- Injected by JS -->
                 </div>
             </div>
 
-            <!-- PAGE 2: STOCK DETAIL & CHART & ORDER BOOK VIEW (종목 상세 & 호가창) -->
+            <!-- PAGE 2: STOCK DETAIL VIEW -->
             <div id="view-detail" class="app-screen absolute inset-0 flex flex-col transition-all duration-300 translate-x-full z-20 bg-white dark:bg-toss-darkBg">
-                <!-- Stock Navigation Header -->
+                <!-- Header Nav -->
                 <div class="px-4 py-2.5 border-b border-gray-100 dark:border-toss-darkBorder bg-white dark:bg-toss-darkBg flex justify-between items-center shrink-0">
                     <button onclick="navigateTo('home')" class="w-9 h-9 rounded-full bg-gray-100 dark:bg-toss-darkCard hover:bg-gray-200 text-gray-700 dark:text-gray-200 flex items-center justify-center transition active-tap">
                         <i class="fa-solid fa-arrow-left text-sm"></i>
                     </button>
-                    <div class="text-center">
-                        <h3 class="text-sm font-extrabold text-gray-900 dark:text-white leading-tight" id="detail-header-title">애플</h3>
-                        <span class="text-[10px] text-gray-400 font-bold tracking-wider" id="detail-header-symbol">AAPL</span>
+                    <div class="flex items-center gap-2">
+                        <div id="detail-header-logo-badge"></div>
+                        <div class="text-left">
+                            <h3 class="text-sm font-extrabold text-gray-900 dark:text-white leading-tight flex items-center gap-1.5" id="detail-header-title">엔비디아</h3>
+                            <span class="text-[10px] text-gray-400 font-bold tracking-wider" id="detail-header-symbol">NVDA</span>
+                        </div>
                     </div>
-                    <button onclick="toggleFavorite()" id="detail-fav-star" class="w-9 h-9 rounded-full bg-gray-100 dark:bg-toss-darkCard hover:bg-gray-200 text-gray-400 flex items-center justify-center transition active-tap">
-                        <i class="fa-regular fa-star text-base"></i>
+                    <button onclick="toggleCurrentFavorite()" id="detail-fav-star" class="w-9 h-9 rounded-full bg-gray-100 dark:bg-toss-darkCard hover:bg-gray-200 text-amber-400 flex items-center justify-center transition active-tap">
+                        <i class="fa-solid fa-star text-base"></i>
                     </button>
                 </div>
 
-                <!-- Scrollable Detail View Container -->
+                <!-- Content Container -->
                 <div class="flex-1 overflow-y-auto p-4 space-y-4">
                     <!-- Price Overview Card -->
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <div class="text-2xl font-black tracking-tight text-gray-900 dark:text-white" id="detail-price">217,272원</div>
-                            <div class="text-xs font-bold mt-0.5 flex items-center gap-1.5" id="detail-change-container">
-                                <span id="detail-change-badge" class="px-2 py-0.5 rounded-md text-white bg-toss-red text-[11px] font-black">+1.8%</span>
-                                <span id="detail-change-diff" class="text-toss-red dark:text-red-400">+3,800원</span>
+                    <div class="flex justify-between items-center bg-gray-50 dark:bg-toss-darkCard p-3.5 rounded-3xl border border-gray-100 dark:border-toss-darkBorder">
+                        <div class="flex items-center gap-3">
+                            <div id="detail-card-logo-badge"></div>
+                            <div>
+                                <div class="text-2xl font-black tracking-tight text-gray-900 dark:text-white" id="detail-price">292,560원</div>
+                                <div class="text-xs font-bold mt-0.5 flex items-center gap-1.5" id="detail-change-container">
+                                    <span id="detail-change-badge" class="px-2 py-0.5 rounded-md text-white bg-toss-red text-[11px] font-black">+3.4%</span>
+                                    <span id="detail-change-diff" class="text-toss-red dark:text-red-400">+9,660원 ($212.00)</span>
+                                </div>
                             </div>
                         </div>
-                        <div class="flex gap-1 bg-gray-100 dark:bg-toss-darkCard p-1 rounded-xl text-xs font-bold">
-                            <button onclick="toggleChartType('line')" id="btn-chart-line" class="px-2.5 py-1 rounded-lg bg-white dark:bg-gray-700 shadow-xs text-gray-900 dark:text-white">선</button>
+                        <div class="flex gap-1 bg-white dark:bg-gray-800 p-1 rounded-xl text-xs font-bold border border-gray-100 dark:border-gray-700">
+                            <button onclick="toggleChartType('line')" id="btn-chart-line" class="px-2.5 py-1 rounded-lg bg-gray-900 dark:bg-gray-700 text-white shadow-xs">선</button>
                             <button onclick="toggleChartType('candle')" id="btn-chart-candle" class="px-2.5 py-1 rounded-lg text-gray-400">봉</button>
                         </div>
                     </div>
 
-                    <!-- Interactive Canvas Chart Box -->
+                    <!-- Canvas Chart Box -->
                     <div class="bg-white dark:bg-toss-darkCard rounded-3xl p-3 border border-gray-100 dark:border-toss-darkBorder shadow-xs">
                         <div class="h-[180px] w-full relative">
                             <canvas id="stockChartCanvas"></canvas>
                         </div>
-                        <!-- Timeframe Selection -->
+                        <!-- Timeframes -->
                         <div class="flex justify-between text-[11px] text-gray-400 font-bold px-3 pt-2.5 border-t border-gray-50 dark:border-toss-darkBorder">
-                            <button onclick="setChartTimeframe('1D')" class="chart-time-btn text-gray-900 dark:text-white font-extrabold border-b-2 border-gray-900 dark:border-white pb-0.5">1일</button>
-                            <button onclick="setChartTimeframe('1W')" class="chart-time-btn">1주</button>
-                            <button onclick="setChartTimeframe('1M')" class="chart-time-btn">1달</button>
-                            <button onclick="setChartTimeframe('1Y')" class="chart-time-btn">1년</button>
-                            <button onclick="setChartTimeframe('ALL')" class="chart-time-btn">전체</button>
+                            <button onclick="setChartTimeframe('1D')" id="tf-1D" class="chart-time-btn text-gray-900 dark:text-white font-extrabold border-b-2 border-gray-900 dark:border-white pb-0.5">1일</button>
+                            <button onclick="setChartTimeframe('1W')" id="tf-1W" class="chart-time-btn">1주</button>
+                            <button onclick="setChartTimeframe('1M')" id="tf-1M" class="chart-time-btn">1달</button>
+                            <button onclick="setChartTimeframe('1Y')" id="tf-1Y" class="chart-time-btn">1년</button>
+                            <button onclick="setChartTimeframe('ALL')" id="tf-ALL" class="chart-time-btn">전체</button>
                         </div>
                     </div>
 
-                    <!-- REALTIME ORDER BOOK (실시간 호가창) -->
+                    <!-- REALTIME ORDER BOOK -->
                     <div class="bg-white dark:bg-toss-darkCard rounded-3xl p-3.5 border border-gray-100 dark:border-toss-darkBorder shadow-xs">
                         <div class="flex justify-between items-center mb-2.5 px-1">
                             <h4 class="text-xs font-black text-gray-900 dark:text-white flex items-center gap-1.5">
                                 <i class="fa-solid fa-list-ol text-toss-blue"></i> 실시간 호가창
                             </h4>
-                            <span class="text-[10px] text-gray-400 font-semibold">체결강도 <span class="text-toss-red font-bold">114%</span></span>
+                            <span class="text-[10px] text-gray-400 font-semibold">체결강도 <span id="volume-power" class="text-toss-red font-bold">118%</span></span>
                         </div>
-
-                        <!-- Order Book 10 Levels Grid -->
                         <div class="divide-y divide-gray-50 dark:divide-toss-darkBorder/50 text-[11px]" id="order-book-container">
-                            <!-- Injected by JS -->
+                            <!-- Injected JS -->
                         </div>
                     </div>
 
-                    <!-- Community Sentiment Voter Card -->
+                    <!-- Sentiment Voter Card -->
                     <div class="bg-gray-50 dark:bg-toss-darkCard rounded-3xl p-3.5 border border-gray-100 dark:border-toss-darkBorder">
                         <div class="flex justify-between items-center mb-2">
                             <span class="text-xs font-bold text-gray-800 dark:text-gray-200">🔥 실시간 투자자 예측</span>
-                            <span class="text-[10px] text-gray-400">총 1,420명 참여</span>
+                            <span class="text-[10px] text-gray-400">총 2,840명 참여</span>
                         </div>
-                        <!-- Sentiment Bar -->
                         <div class="h-3 w-full bg-blue-100 dark:bg-blue-950 rounded-full overflow-hidden flex mb-2">
-                            <div id="bullish-bar" class="bg-toss-red h-full transition-all duration-500" style="width: 78%;"></div>
-                            <div id="bearish-bar" class="bg-toss-blue h-full transition-all duration-500" style="width: 22%;"></div>
+                            <div id="bullish-bar" class="bg-toss-red h-full transition-all duration-500" style="width: 82%;"></div>
+                            <div id="bearish-bar" class="bg-toss-blue h-full transition-all duration-500" style="width: 18%;"></div>
                         </div>
                         <div class="flex justify-between text-xs font-black">
                             <button onclick="voteSentiment('up')" class="text-toss-red flex items-center gap-1 active-tap">
-                                <i class="fa-solid fa-arrow-trend-up"></i> 상승 <span id="bull-pct">78%</span>
+                                <i class="fa-solid fa-arrow-trend-up"></i> 상승 <span id="bull-pct">82%</span>
                             </button>
                             <button onclick="voteSentiment('down')" class="text-toss-blue flex items-center gap-1 active-tap">
-                                하락 <span id="bear-pct">22%</span> <i class="fa-solid fa-arrow-trend-down"></i>
+                                하락 <span id="bear-pct">18%</span> <i class="fa-solid fa-arrow-trend-down"></i>
                             </button>
                         </div>
                     </div>
@@ -300,25 +296,25 @@
                     <div class="grid grid-cols-2 gap-2 text-xs">
                         <div class="bg-gray-50 dark:bg-toss-darkCard p-3 rounded-2xl border border-gray-100 dark:border-toss-darkBorder">
                             <span class="text-gray-400 text-[10px] block">52주 최고</span>
-                            <span class="font-bold text-gray-900 dark:text-white" id="metric-52high">235,000원</span>
+                            <span class="font-bold text-gray-900 dark:text-white" id="metric-52high">326,000원</span>
                         </div>
                         <div class="bg-gray-50 dark:bg-toss-darkCard p-3 rounded-2xl border border-gray-100 dark:border-toss-darkBorder">
                             <span class="text-gray-400 text-[10px] block">52주 최저</span>
-                            <span class="font-bold text-gray-900 dark:text-white" id="metric-52low">162,000원</span>
+                            <span class="font-bold text-gray-900 dark:text-white" id="metric-52low">226,000원</span>
                         </div>
                         <div class="bg-gray-50 dark:bg-toss-darkCard p-3 rounded-2xl border border-gray-100 dark:border-toss-darkBorder">
                             <span class="text-gray-400 text-[10px] block">시가총액</span>
-                            <span class="font-bold text-gray-900 dark:text-white" id="metric-mcap">3,200조원</span>
+                            <span class="font-bold text-gray-900 dark:text-white" id="metric-mcap">4,500조원</span>
                         </div>
                         <div class="bg-gray-50 dark:bg-toss-darkCard p-3 rounded-2xl border border-gray-100 dark:border-toss-darkBorder">
-                            <span class="text-gray-400 text-[10px] block">PER / PBR</span>
-                            <span class="font-bold text-gray-900 dark:text-white" id="metric-per">32.4배 / 8.1배</span>
+                            <span class="text-gray-400 text-[10px] block">PER / 섹터</span>
+                            <span class="font-bold text-gray-900 dark:text-white" id="metric-per">48.2배 / AI 반도체</span>
                         </div>
                     </div>
 
                 </div>
 
-                <!-- Sticky Order Action Buttons (매수 / 매도) -->
+                <!-- Sticky Order Action Buttons -->
                 <div class="p-3.5 bg-white dark:bg-toss-darkBg border-t border-gray-100 dark:border-toss-darkBorder flex gap-2 shrink-0 z-20">
                     <button onclick="openTradeDrawer('buy')" class="flex-1 bg-toss-red hover:bg-red-600 active-tap text-white font-extrabold py-3.5 rounded-2xl text-sm transition shadow-lg shadow-red-500/20">
                         매수하기
@@ -329,38 +325,33 @@
                 </div>
             </div>
 
-            <!-- PAGE 3: INVESTOR COMMUNITY VIEW (커뮤니티) -->
+            <!-- PAGE 3: INVESTOR COMMUNITY VIEW -->
             <div id="view-community" class="app-screen absolute inset-0 flex flex-col transition-all duration-300 translate-x-full z-10 bg-white dark:bg-toss-darkBg">
                 <div class="px-4 py-3 border-b border-gray-100 dark:border-toss-darkBorder bg-white dark:bg-toss-darkBg shrink-0">
                     <h2 class="text-base font-black text-gray-900 dark:text-white">실시간 주주 커뮤니티 💬</h2>
-                    <p class="text-[11px] text-gray-400 font-medium">투자자들의 생생한 반응과 실시간 의견을 확인하세요.</p>
+                    <p class="text-[11px] text-gray-400 font-medium">국내 및 해외 주식 투자자들의 실시간 피드</p>
                 </div>
 
-                <!-- Post Creation Box -->
                 <div class="p-3.5 border-b border-gray-100 dark:border-toss-darkBorder bg-gray-50 dark:bg-toss-darkCard/40 shrink-0">
-                    <div class="flex gap-2">
-                        <textarea id="community-input" rows="2" placeholder="투자 의견이나 생각을 자유롭게 나눠보세요..." class="w-full p-2.5 text-xs bg-white dark:bg-toss-darkCard border border-gray-200 dark:border-toss-darkBorder rounded-xl focus:outline-none focus:border-toss-blue text-gray-900 dark:text-white resize-none"></textarea>
-                    </div>
+                    <textarea id="community-input" rows="2" placeholder="투자의견이나 소식을 남겨보세요..." class="w-full p-2.5 text-xs bg-white dark:bg-toss-darkCard border border-gray-200 dark:border-toss-darkBorder rounded-xl focus:outline-none focus:border-toss-blue text-gray-900 dark:text-white resize-none"></textarea>
                     <div class="flex justify-between items-center mt-2">
-                        <span class="text-[10px] text-gray-400 font-medium">AI 자동 클린 필터링 가동 중</span>
-                        <button onclick="addCommunityPost()" class="px-3 py-1.5 bg-toss-blue text-white font-bold text-xs rounded-xl active-tap">게시글 작성</button>
+                        <span class="text-[10px] text-gray-400 font-medium">AI 클린 필터링 작동 중</span>
+                        <button onclick="addCommunityPost()" class="px-3.5 py-1.5 bg-toss-blue text-white font-bold text-xs rounded-xl active-tap">게시글 작성</button>
                     </div>
                 </div>
 
-                <!-- Feed Posts Scroll Container -->
-                <div id="community-feed" class="flex-1 overflow-y-auto p-4 space-y-3">
+                <div id="community-feed" class="flex-1 overflow-y-auto p-4 space-y-3 divide-y divide-gray-100 dark:divide-toss-darkBorder">
                     <!-- Dynamic Feed Injected Here -->
                 </div>
             </div>
 
-            <!-- PAGE 4: PORTFOLIO & ASSET VIEW (내 자산) -->
+            <!-- PAGE 4: PORTFOLIO VIEW -->
             <div id="view-portfolio" class="app-screen absolute inset-0 flex flex-col transition-all duration-300 translate-x-full z-10 bg-white dark:bg-toss-darkBg">
                 <div class="px-4 py-3 border-b border-gray-100 dark:border-toss-darkBorder bg-white dark:bg-toss-darkBg shrink-0">
                     <h2 class="text-base font-black text-gray-900 dark:text-white">내 투자 자산 분석 💼</h2>
                 </div>
 
                 <div class="flex-1 overflow-y-auto p-4 space-y-4">
-                    <!-- Overall Portfolio Card -->
                     <div class="p-4 bg-gradient-to-br from-blue-600 to-indigo-700 text-white rounded-3xl shadow-lg">
                         <span class="text-xs text-blue-100 font-medium block mb-1">총 주식 평가금액</span>
                         <div class="text-2xl font-black mb-3" id="portfolio-eval-total">0 원</div>
@@ -376,7 +367,6 @@
                         </div>
                     </div>
 
-                    <!-- Portfolio Allocation Donut Chart -->
                     <div class="bg-white dark:bg-toss-darkCard rounded-3xl p-4 border border-gray-100 dark:border-toss-darkBorder">
                         <h4 class="text-xs font-bold text-gray-900 dark:text-white mb-2">자산 비중 분포</h4>
                         <div class="h-[160px] relative flex justify-center items-center">
@@ -384,7 +374,6 @@
                         </div>
                     </div>
 
-                    <!-- Holdings Stock List -->
                     <div>
                         <h4 class="text-xs font-bold text-gray-900 dark:text-white mb-2">보유 종목 잔고</h4>
                         <div id="portfolio-holdings-list" class="space-y-2">
@@ -392,7 +381,6 @@
                         </div>
                     </div>
 
-                    <!-- Transaction Log -->
                     <div>
                         <h4 class="text-xs font-bold text-gray-900 dark:text-white mb-2">최근 매매 내역</h4>
                         <div id="transaction-log-list" class="space-y-1.5 text-xs">
@@ -402,26 +390,24 @@
                 </div>
             </div>
 
-            <!-- PAGE 5: APP SETTINGS VIEW (설정) -->
+            <!-- PAGE 5: APP SETTINGS VIEW -->
             <div id="view-settings" class="app-screen absolute inset-0 flex flex-col transition-all duration-300 translate-x-full z-10 bg-white dark:bg-toss-darkBg">
                 <div class="px-4 py-3 border-b border-gray-100 dark:border-toss-darkBorder bg-white dark:bg-toss-darkBg shrink-0">
                     <h2 class="text-base font-black text-gray-900 dark:text-white">앱 설정 및 관리 ⚙️</h2>
                 </div>
 
                 <div class="flex-1 overflow-y-auto p-4 space-y-3 text-xs">
-                    <!-- App Icon Theme Picker Card -->
                     <div class="bg-gray-50 dark:bg-toss-darkCard rounded-2xl p-3.5 border border-gray-100 dark:border-toss-darkBorder space-y-3">
                         <div class="flex items-center justify-between">
                             <div>
                                 <span class="font-bold text-gray-900 dark:text-white block">앱 아이콘 스타일</span>
-                                <span class="text-[10px] text-gray-400">바탕화면 및 헤더에 적용할 아이콘 디자인</span>
+                                <span class="text-[10px] text-gray-400">바탕화면 및 헤더 아이콘 디자인</span>
                             </div>
                             <button onclick="openIconInstallModal()" class="text-[10px] font-bold text-toss-blue hover:underline">
-                                홈 화면 추가 미리보기 <i class="fa-solid fa-chevron-right ml-0.5"></i>
+                                미리보기 <i class="fa-solid fa-chevron-right ml-0.5"></i>
                             </button>
                         </div>
 
-                        <!-- Icon Palette Options Grid -->
                         <div class="grid grid-cols-5 gap-2 pt-1">
                             <button onclick="setAppIconTheme('toss-blue')" class="icon-theme-btn flex flex-col items-center gap-1.5 p-1.5 rounded-xl hover:bg-gray-200/50 dark:hover:bg-gray-700/50 transition">
                                 <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-500 text-white flex items-center justify-center text-base shadow-sm border border-white/20">
@@ -463,15 +449,15 @@
                     <div class="bg-gray-50 dark:bg-toss-darkCard rounded-2xl p-3.5 border border-gray-100 dark:border-toss-darkBorder flex items-center justify-between">
                         <div>
                             <span class="font-bold text-gray-900 dark:text-white block">다크 모드</span>
-                            <span class="text-[10px] text-gray-400">어두운 화면 테마를 사용합니다</span>
+                            <span class="text-[10px] text-gray-400">어두운 테마 사용</span>
                         </div>
                         <input type="checkbox" id="toggle-dark-check" onchange="toggleDarkMode()" class="w-4 h-4 accent-toss-blue">
                     </div>
 
                     <div class="bg-gray-50 dark:bg-toss-darkCard rounded-2xl p-3.5 border border-gray-100 dark:border-toss-darkBorder flex items-center justify-between">
                         <div>
-                            <span class="font-bold text-gray-900 dark:text-white block">주문 체결 사운드 효과</span>
-                            <span class="text-[10px] text-gray-400">매수/매도 실행 시 효과음을 재생합니다</span>
+                            <span class="font-bold text-gray-900 dark:text-white block">주문 체결 효과음</span>
+                            <span class="text-[10px] text-gray-400">매수/매도 시 실시간 사운드 재생</span>
                         </div>
                         <input type="checkbox" id="toggle-sound-check" checked class="w-4 h-4 accent-toss-blue">
                     </div>
@@ -479,7 +465,7 @@
                     <div class="bg-gray-50 dark:bg-toss-darkCard rounded-2xl p-3.5 border border-gray-100 dark:border-toss-darkBorder flex items-center justify-between">
                         <div>
                             <span class="font-bold text-gray-900 dark:text-white block">실시간 가격 시뮬레이션</span>
-                            <span class="text-[10px] text-gray-400">2.5초 주기로 가상 호가 변동</span>
+                            <span class="text-[10px] text-gray-400">2초 주기로 가상 호가 변동</span>
                         </div>
                         <input type="checkbox" id="toggle-live-tick" checked onchange="toggleLiveTicker(this.checked)" class="w-4 h-4 accent-toss-blue">
                     </div>
@@ -494,15 +480,98 @@
 
         </div>
 
-        <!-- MOBILE TRADE BOTTOM SHEET DRAWER -->
+        <!-- TRADE BOTTOM SHEET DRAWER -->
         <div id="trade-sheet" class="fixed sm:absolute inset-0 bg-black/60 backdrop-blur-xs z-50 flex flex-col justify-end transition-opacity duration-300 opacity-0 pointer-events-none">
-            <!-- ... existing trade drawer content ... -->
+            <div id="trade-sheet-content" class="bg-white dark:bg-toss-darkBg rounded-t-3xl p-4 transform translate-y-full transition-transform duration-300 border-t border-gray-100 dark:border-toss-darkBorder max-h-[85%] overflow-y-auto">
+                <div class="w-12 h-1 bg-gray-300 dark:bg-gray-700 rounded-full mx-auto mb-3"></div>
+                <div class="flex justify-between items-center mb-3">
+                    <h3 class="text-base font-extrabold text-gray-900 dark:text-white" id="trade-type-title">매수 주문</h3>
+                    <button onclick="closeTradeDrawer()" class="w-7 h-7 rounded-full bg-gray-100 dark:bg-toss-darkCard text-gray-400 hover:text-gray-700 dark:hover:text-white flex items-center justify-center text-xs">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <div class="space-y-3 text-xs">
+                    <div class="bg-gray-50 dark:bg-toss-darkCard p-3 rounded-2xl flex justify-between items-center border border-gray-100 dark:border-toss-darkBorder">
+                        <div class="flex items-center gap-2.5">
+                            <div id="trade-stock-logo"></div>
+                            <div>
+                                <span class="font-bold text-gray-900 dark:text-white block text-sm" id="trade-stock-name">엔비디아</span>
+                                <span class="text-[10px] text-gray-400 font-mono" id="trade-stock-symbol">NVDA</span>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span class="font-black text-gray-900 dark:text-white text-sm" id="trade-current-price">292,560원</span>
+                        </div>
+                    </div>
+
+                    <!-- Quantity Input -->
+                    <div>
+                        <div class="flex justify-between text-gray-500 mb-1 font-bold">
+                            <span>주문 수량</span>
+                            <span>가능: <strong id="trade-max-qty" class="text-toss-blue">0주</strong></span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button onclick="adjustQuantity(-1)" class="w-10 h-10 rounded-xl bg-gray-100 dark:bg-toss-darkCard text-gray-800 dark:text-gray-200 font-black text-lg active-tap">-</button>
+                            <input type="number" id="trade-qty-input" value="1" min="1" oninput="calculateTradeTotal()" class="flex-1 bg-gray-50 dark:bg-toss-darkCard border border-gray-200 dark:border-toss-darkBorder rounded-xl h-10 text-center font-bold text-gray-900 dark:text-white text-sm focus:outline-none focus:border-toss-blue">
+                            <button onclick="adjustQuantity(1)" class="w-10 h-10 rounded-xl bg-gray-100 dark:bg-toss-darkCard text-gray-800 dark:text-gray-200 font-black text-lg active-tap">+</button>
+                        </div>
+                    </div>
+
+                    <!-- Quick Qty Buttons -->
+                    <div class="grid grid-cols-4 gap-1.5 font-bold">
+                        <button onclick="setQuantityPct(0.1)" class="py-1.5 bg-gray-100 dark:bg-toss-darkCard rounded-lg text-gray-600 dark:text-gray-300 active-tap">10%</button>
+                        <button onclick="setQuantityPct(0.25)" class="py-1.5 bg-gray-100 dark:bg-toss-darkCard rounded-lg text-gray-600 dark:text-gray-300 active-tap">25%</button>
+                        <button onclick="setQuantityPct(0.5)" class="py-1.5 bg-gray-100 dark:bg-toss-darkCard rounded-lg text-gray-600 dark:text-gray-300 active-tap">50%</button>
+                        <button onclick="setQuantityPct(1.0)" class="py-1.5 bg-gray-100 dark:bg-toss-darkCard rounded-lg text-gray-600 dark:text-gray-300 active-tap">최대</button>
+                    </div>
+
+                    <!-- Estimated Total -->
+                    <div class="pt-2 border-t border-gray-100 dark:border-toss-darkBorder flex justify-between items-center text-sm font-extrabold">
+                        <span class="text-gray-500">총 결제 예정 금액</span>
+                        <span id="trade-total-price" class="text-toss-red text-base">292,560 원</span>
+                    </div>
+
+                    <button id="btn-submit-trade" onclick="executeTrade()" class="w-full bg-toss-red hover:bg-red-600 text-white font-extrabold py-3.5 rounded-2xl text-sm transition shadow-lg active-tap mt-2">
+                        매수 주문 제출하기
+                    </button>
+                </div>
+            </div>
         </div>
 
-        <!-- MOBILE HOME SCREEN APP ICON & PWA INSTALL PREVIEW MODAL -->
+        <!-- AI DIAGNOSIS MODAL -->
+        <div id="ai-modal" class="fixed sm:absolute inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4 transition-opacity duration-300 opacity-0 pointer-events-none">
+            <div id="ai-modal-card" class="bg-white dark:bg-toss-darkBg w-full max-w-xs rounded-3xl p-5 shadow-2xl transform scale-95 transition-transform duration-300 flex flex-col border border-gray-100 dark:border-toss-darkBorder">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-xs font-black text-toss-blue flex items-center gap-1.5">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> Arit AI 주식 심층 진단
+                    </span>
+                    <button onclick="closeAIModal()" class="w-7 h-7 rounded-full bg-gray-100 dark:bg-toss-darkCard text-gray-400 hover:text-gray-700 dark:hover:text-white flex items-center justify-center text-xs">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <div class="flex items-center gap-2.5 my-2 bg-gray-50 dark:bg-toss-darkCard p-2.5 rounded-2xl border border-gray-100 dark:border-toss-darkBorder">
+                    <div id="ai-modal-stock-logo"></div>
+                    <div>
+                        <h3 class="text-sm font-extrabold text-gray-900 dark:text-white leading-tight" id="ai-stock-title">엔비디아 (NVDA)</h3>
+                        <span class="text-[10px] text-gray-400 font-semibold" id="ai-stock-subtitle">AI 반도체 섹터</span>
+                    </div>
+                </div>
+                
+                <div id="ai-analysis-content" class="bg-blue-50/60 dark:bg-blue-950/40 p-3.5 rounded-2xl border border-blue-100 dark:border-blue-900/50 text-xs space-y-2 text-gray-800 dark:text-gray-200 leading-relaxed mb-3">
+                    <!-- Dynamic Injected Content -->
+                </div>
+
+                <button onclick="closeAIModal()" class="w-full bg-toss-blue hover:bg-blue-600 text-white font-bold py-2.5 rounded-xl text-xs transition active-tap">
+                    확인 완료
+                </button>
+            </div>
+        </div>
+
+        <!-- APP ICON INSTALL MODAL -->
         <div id="icon-install-modal" class="fixed sm:absolute inset-0 bg-black/70 backdrop-blur-md z-50 flex items-center justify-center p-4 transition-opacity duration-300 opacity-0 pointer-events-none">
             <div id="icon-modal-card" class="bg-white dark:bg-toss-darkBg w-full max-w-xs rounded-3xl p-5 shadow-2xl transform scale-95 transition-transform duration-300 flex flex-col items-center text-center border border-gray-100 dark:border-toss-darkBorder">
-                
                 <div class="w-full flex justify-between items-center mb-2">
                     <span class="text-xs font-black text-gray-900 dark:text-white flex items-center gap-1.5">
                         <i class="fa-solid fa-mobile-screen text-indigo-500"></i> 스마트폰 홈 화면 앱 아이콘
@@ -512,43 +581,30 @@
                     </button>
                 </div>
 
-                <!-- Simulated Smartphone Home Screen Grid -->
                 <div class="w-full bg-gradient-to-b from-slate-900 via-indigo-950 to-slate-900 p-4 rounded-3xl border border-white/10 shadow-inner my-2 relative overflow-hidden">
                     <div class="text-[10px] text-white/50 font-mono mb-3 text-center">미리보기 : 모바일 홈 화면</div>
-                    
-                    <!-- App Icon Grid Display -->
                     <div class="grid grid-cols-4 gap-3 place-items-center">
-                        <!-- Mock App 1: Toss -->
                         <div class="flex flex-col items-center gap-1 opacity-60">
-                            <div class="w-12 h-12 rounded-[16px] bg-blue-500 text-white flex items-center justify-center text-xl shadow-md">
+                            <div class="w-11 h-11 rounded-[16px] bg-blue-500 text-white flex items-center justify-center text-lg shadow-md">
                                 <i class="fa-solid fa-hand-holding-dollar"></i>
                             </div>
                             <span class="text-[9px] font-medium text-white/80">토스</span>
                         </div>
-
-                        <!-- Mock App 2: KakaoTalk -->
                         <div class="flex flex-col items-center gap-1 opacity-60">
-                            <div class="w-12 h-12 rounded-[16px] bg-yellow-400 text-gray-900 flex items-center justify-center text-xl shadow-md">
+                            <div class="w-11 h-11 rounded-[16px] bg-yellow-400 text-gray-900 flex items-center justify-center text-lg shadow-md">
                                 <i class="fa-solid fa-comment"></i>
                             </div>
                             <span class="text-[9px] font-medium text-white/80">카카오톡</span>
                         </div>
-
-                        <!-- HIGHLIGHTED TARGET: Arit MTS App Icon -->
                         <div class="flex flex-col items-center gap-1 relative animate-bounce">
-                            <!-- Icon Badge -->
-                            <span class="absolute -top-1.5 -right-1 z-10 w-5 h-5 bg-red-500 text-white text-[9px] font-black rounded-full flex items-center justify-center shadow-md border-2 border-slate-900">3</span>
-                            
-                            <!-- Dynamic App Icon Box -->
-                            <div id="modal-preview-app-icon" class="w-12 h-12 rounded-[16px] bg-gradient-to-tr from-blue-600 to-indigo-500 text-white flex items-center justify-center text-xl shadow-lg shadow-blue-500/30 border border-white/20 transition-all duration-300">
+                            <span class="absolute -top-1.5 -right-1 z-10 w-4 h-4 bg-red-500 text-white text-[8px] font-black rounded-full flex items-center justify-center shadow-md">N</span>
+                            <div id="modal-preview-app-icon" class="w-11 h-11 rounded-[16px] bg-gradient-to-tr from-blue-600 to-indigo-500 text-white flex items-center justify-center text-lg shadow-lg shadow-blue-500/30 border border-white/20 transition-all duration-300">
                                 <i id="modal-preview-icon-symbol" class="fa-solid fa-chart-pie"></i>
                             </div>
                             <span class="text-[10px] font-bold text-white tracking-tight">Arit MTS</span>
                         </div>
-
-                        <!-- Mock App 3: Youtube -->
                         <div class="flex flex-col items-center gap-1 opacity-60">
-                            <div class="w-12 h-12 rounded-[16px] bg-red-600 text-white flex items-center justify-center text-xl shadow-md">
+                            <div class="w-11 h-11 rounded-[16px] bg-red-600 text-white flex items-center justify-center text-lg shadow-md">
                                 <i class="fa-brands fa-youtube"></i>
                             </div>
                             <span class="text-[9px] font-medium text-white/80">YouTube</span>
@@ -556,51 +612,49 @@
                     </div>
                 </div>
 
-                <!-- Installation Instruction Guide -->
-                <div class="bg-gray-50 dark:bg-toss-darkCard rounded-2xl p-3 border border-gray-100 dark:border-toss-darkBorder w-full text-left my-2 space-y-1.5">
-                    <span class="text-[11px] font-bold text-gray-900 dark:text-white block">💡 스마트폰에 앱 아이콘 추가하는 방법</span>
-                    <div class="text-[10px] text-gray-500 dark:text-gray-400 space-y-1">
-                        <p class="flex items-center gap-1.5"><i class="fa-brands fa-apple text-xs text-gray-700 dark:text-gray-300"></i> <strong class="text-gray-800 dark:text-gray-200">iOS Safari:</strong> 하단 공유 버튼 <i class="fa-solid fa-arrow-up-from-bracket"></i> 클릭 → '홈 화면에 추가'</p>
-                        <p class="flex items-center gap-1.5"><i class="fa-brands fa-android text-xs text-green-500"></i> <strong class="text-gray-800 dark:text-gray-200">Android Chrome:</strong> 우측 상단 메뉴 <i class="fa-solid fa-ellipsis-vertical"></i> 클릭 → '앱 설치' 또는 '홈 화면에 추가'</p>
+                <div class="bg-gray-50 dark:bg-toss-darkCard rounded-2xl p-3 border border-gray-100 dark:border-toss-darkBorder w-full text-left my-2 space-y-1">
+                    <span class="text-[11px] font-bold text-gray-900 dark:text-white block">💡 홈 화면에 앱 추가하는 법</span>
+                    <div class="text-[10px] text-gray-500 dark:text-gray-400 space-y-0.5">
+                        <p><strong class="text-gray-800 dark:text-gray-200">iOS Safari:</strong> 하단 공유 <i class="fa-solid fa-arrow-up-from-bracket"></i> → '홈 화면에 추가'</p>
+                        <p><strong class="text-gray-800 dark:text-gray-200">Android Chrome:</strong> 메뉴 <i class="fa-solid fa-ellipsis-vertical"></i> → '앱 설치' 또는 '홈 화면에 추가'</p>
                     </div>
                 </div>
 
-                <button onclick="closeIconInstallModal()" class="w-full bg-toss-blue hover:bg-blue-600 text-white font-extrabold py-3 rounded-2xl text-xs transition active-tap mt-1">
+                <button onclick="closeIconInstallModal()" class="w-full bg-toss-blue hover:bg-blue-600 text-white font-extrabold py-2.5 rounded-2xl text-xs transition active-tap mt-1">
                     확인 및 닫기
                 </button>
             </div>
         </div>
 
-        <!-- QR CODE APP SHARE MODAL -->
+        <!-- QR CODE MODAL -->
         <div id="qr-modal" class="fixed sm:absolute inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4 transition-opacity duration-300 opacity-0 pointer-events-none">
             <div id="qr-modal-card" class="bg-white dark:bg-toss-darkBg w-full max-w-xs rounded-3xl p-5 shadow-2xl transform scale-95 transition-transform duration-300 flex flex-col items-center text-center border border-gray-100 dark:border-toss-darkBorder">
-                <div class="w-11 h-11 rounded-2xl bg-blue-50 dark:bg-blue-950 text-toss-blue dark:text-blue-400 flex items-center justify-center text-xl mb-3">
+                <div class="w-10 h-10 rounded-2xl bg-blue-50 dark:bg-blue-950 text-toss-blue dark:text-blue-400 flex items-center justify-center text-lg mb-2">
                     <i class="fa-solid fa-qrcode"></i>
                 </div>
                 <h3 class="text-base font-extrabold text-gray-900 dark:text-white mb-1">Arit 앱 QR 코드</h3>
-                <p class="text-[11px] text-gray-400 font-medium mb-4">스마트폰 카메라로 아래 QR 코드를 스캔하여 접속하세요.</p>
+                <p class="text-[11px] text-gray-400 font-medium mb-3">스마트폰 카메라로 스캔하여 이동하세요.</p>
                 
-                <!-- QR Code Display Box -->
-                <div class="bg-white p-3 rounded-2xl shadow-inner border border-gray-100 mb-4 flex justify-center items-center">
-                    <img id="qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=https://ati-all.github.io/arit/" alt="Arit QR Code" class="w-44 h-44 rounded-lg object-contain" onerror="this.src='https://quickchart.io/qr?text=https://ati-all.github.io/arit/&size=220'">
+                <div class="bg-white p-2.5 rounded-2xl shadow-inner border border-gray-100 mb-3 flex justify-center items-center">
+                    <img id="qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://ati-all.github.io/arit/" alt="Arit QR Code" class="w-40 h-40 rounded-lg object-contain" onerror="this.src='https://quickchart.io/qr?text=https://ati-all.github.io/arit/&size=200'">
                 </div>
 
-                <div class="text-[11px] font-mono text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-toss-darkCard px-3 py-1.5 rounded-xl border border-gray-100 dark:border-toss-darkBorder w-full truncate mb-4 select-all">
+                <div class="text-[10px] font-mono text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-toss-darkCard px-3 py-1.5 rounded-xl border border-gray-100 dark:border-toss-darkBorder w-full truncate mb-3 select-all">
                     https://ati-all.github.io/arit/
                 </div>
 
                 <div class="flex gap-2 w-full">
-                    <button onclick="copyAppUrl()" class="flex-1 bg-gray-100 dark:bg-toss-darkCard hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200 font-bold py-2.5 rounded-xl text-xs transition active-tap">
-                        <i class="fa-regular fa-copy mr-1"></i> 주소 복사
+                    <button onclick="copyAppUrl()" class="flex-1 bg-gray-100 dark:bg-toss-darkCard hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200 font-bold py-2 rounded-xl text-xs transition active-tap">
+                        <i class="fa-regular fa-copy mr-1"></i> 복사
                     </button>
-                    <button onclick="closeQRModal()" class="flex-1 bg-toss-blue hover:bg-blue-600 text-white font-bold py-2.5 rounded-xl text-xs transition active-tap">
+                    <button onclick="closeQRModal()" class="flex-1 bg-toss-blue hover:bg-blue-600 text-white font-bold py-2 rounded-xl text-xs transition active-tap">
                         닫기
                     </button>
                 </div>
             </div>
         </div>
 
-        <!-- NATIVE MOBILE BOTTOM NAVIGATION MENU -->
+        <!-- BOTTOM NAVIGATION MENU -->
         <nav class="bg-white/95 dark:bg-toss-darkBg/95 backdrop-blur-md border-t border-gray-100 dark:border-toss-darkBorder px-3 py-2 flex justify-around items-center shrink-0 z-30">
             <button onclick="navigateTo('home')" id="nav-home" class="nav-btn flex flex-col items-center text-toss-blue">
                 <i class="fa-solid fa-chart-line text-lg"></i>
@@ -624,954 +678,1461 @@
             </button>
         </nav>
 
+        <!-- Dynamic Toast Floating Container -->
+        <div id="toast-container" class="absolute top-16 left-1/2 -translate-x-1/2 z-50 flex flex-col gap-2 pointer-events-none w-11/12 max-w-xs"></div>
+
     </main>
 
-    <!-- App Toast Notification -->
-    <div id="toast-banner" class="fixed top-5 left-1/2 -translate-x-1/2 bg-gray-900/95 dark:bg-white/95 text-white dark:text-gray-900 text-xs font-bold px-4 py-3 rounded-2xl shadow-2xl z-50 flex items-center gap-2.5 transition-all duration-300 opacity-0 pointer-events-none max-w-[90vw]">
-        <i class="fa-solid fa-circle-check text-green-400 dark:text-green-600 text-sm" id="toast-icon"></i>
-        <span id="toast-msg">주문이 성공적으로 실행되었습니다.</span>
-    </div>
-
     <script>
-        // Global Stock Database
+        /* ==========================================================================
+           FULL COMPREHENSIVE STOCK DATASET & BRAND LOGO MAPPINGS
+           ========================================================================== */
+        
+        // Exchange Rate Standard: 1 USD ≈ 1,380 KRW
+        const USD_KRW_RATE = 1380;
+
+        // HIGH-PRECISION BRAND LOGO SVG & BADGE MAPPING TABLE
+        const stockLogosMap = {
+            'NVDA': {
+                bg: 'bg-[#76B900] text-white',
+                svg: `<svg viewBox="0 0 24 24" class="w-5 h-5 fill-current"><path d="M11.996 15.353c-1.472 0-2.825-.373-3.923-1.049.888 1.488 2.658 2.316 4.707 2.316 3.012 0 5.166-1.636 5.166-4.048 0-3.645-5.324-4.026-5.324-6.075 0-.756.689-1.259 1.776-1.259 1.25 0 2.502.392 3.447.994-.783-1.325-2.316-2.036-4.145-2.036-2.771 0-4.835 1.587-4.835 3.974 0 3.69 5.342 3.996 5.342 6.076 0 .864-.81 1.107-2.211 1.107z"/></svg>`
+            },
+            'AAPL': {
+                bg: 'bg-slate-900 text-white dark:bg-slate-800 border border-white/10',
+                svg: `<svg viewBox="0 0 24 24" class="w-5 h-5 fill-current"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.67c.64-.78 1.08-1.85.96-2.92-.93.04-2.06.62-2.73 1.4-.59.69-1.11 1.78-.97 2.84 1.05.08 2.11-.53 2.74-1.32z"/></svg>`
+            },
+            'MSFT': {
+                bg: 'bg-slate-950 p-1.5',
+                svg: `<svg viewBox="0 0 24 24" class="w-5 h-5"><rect x="1" y="1" width="10" height="10" fill="#F25022"/><rect x="13" y="1" width="10" height="10" fill="#7FBA00"/><rect x="1" y="13" width="10" height="10" fill="#00A4EF"/><rect x="13" y="13" width="10" height="10" fill="#FFB900"/></svg>`
+            },
+            'TSLA': {
+                bg: 'bg-[#E82127] text-white',
+                svg: `<svg viewBox="0 0 24 24" class="w-5 h-5 fill-current"><path d="M12 4.562c2.812 0 5.485.452 7.72 1.258.4.144.475-.327.272-.656-1.826-2.952-4.545-3.664-7.992-3.664-3.447 0-6.166.712-7.992 3.664-.203.329-.128.8.272.656C6.515 5.014 9.188 4.562 12 4.562zm0 2.646c-2.368 0-4.58.337-6.505.952l1.042 3.126 1.943-3.126h7.04l1.943 3.126 1.042-3.126C16.58 7.545 14.368 7.208 12 7.208zm-1.026 4.965h2.052v9.327h-2.052V12.173z"/></svg>`
+            },
+            'GOOGL': {
+                bg: 'bg-white border border-gray-200 shadow-2xs',
+                svg: `<svg viewBox="0 0 24 24" class="w-5 h-5"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.1c-.22-.66-.35-1.36-.35-2.1s.13-1.44.35-2.1V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>`
+            },
+            'META': {
+                bg: 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white',
+                svg: `<svg viewBox="0 0 24 24" class="w-5 h-5 fill-current"><path d="M16.48 4.25c-1.85 0-3.56.91-4.48 2.37-1.02-1.48-2.66-2.37-4.5-2.37-3.41 0-6 2.48-6 6.03 0 4.27 4.14 8.79 9.87 11.47.38.18.88.18 1.26 0 5.73-2.68 9.87-7.2 9.87-11.47 0-3.55-2.59-6.03-6.02-6.03zm-10.48 8.03c0-2.3 1.5-3.95 3.75-3.95 1.48 0 2.76.8 3.45 2.03-1.02 1.6-2.26 3.42-3.7 5.16-2.03-1.08-3.5-2.24-3.5-3.24zm10.48 3.24c-1.44-1.74-2.68-3.56-3.7-5.16.69-1.23 1.97-2.03 3.45-2.03 2.25 0 3.75 1.65 3.75 3.95 0 1-.1.17 2.16 3.24z"/></svg>`
+            },
+            'AMZN': {
+                bg: 'bg-[#232F3E] text-amber-400',
+                svg: `<svg viewBox="0 0 24 24" class="w-5 h-5 fill-current"><path d="M15.3 15.8c-2.3 1.7-5.6 2.6-8.5 2.6-4 0-7.6-1.5-10.3-4-.2-.2-.2-.5 0-.7.2-.2.5-.2.7 0 2.4 2.3 5.7 3.6 9.4 3.6 2.7 0 5.6-.8 7.8-2.3.3-.2.7 0 .9.3.2.3.1.7-.1.9z"/><path d="M16.7 14.8c-.3-.4-1.9-.2-2.6-.1-.2 0-.3-.2-.1-.3.8-.6 2.1-.4 2.9.3.8.7.6 2.1-.1 2.8-.2.2-.3.1-.2-.1.3-.7.4-2.2-.1-2.6z"/></svg>`
+            },
+            'COIN': {
+                bg: 'bg-[#0052FF] text-white',
+                svg: `<span class="font-black text-sm">C</span>`
+            },
+            'PLTR': {
+                bg: 'bg-slate-950 text-white border border-gray-700',
+                svg: `<i class="fa-solid fa-ring text-xs text-indigo-400"></i>`
+            },
+            'NKE': {
+                bg: 'bg-black text-white',
+                svg: `<svg viewBox="0 0 24 24" class="w-5 h-5 fill-current"><path d="M21.71 6.3c-.34-.4-.82-.6-1.35-.55-2.9.27-7.85 2.15-12.75 6.33-2.12 1.8-3.76 3.63-4.87 5.2-.24.34-.37.75-.37 1.17 0 1.22 1.05 2.1 2.34 2.1 1.03 0 2.22-.55 3.39-1.55 4.96-4.23 10.9-9.52 13.61-12.7.38-.45.4-1.1-.01-1.5z"/></svg>`
+            },
+            'SBUX': {
+                bg: 'bg-[#00704A] text-white',
+                svg: `<i class="fa-solid fa-mug-hot text-xs"></i>`
+            },
+            'NFLX': {
+                bg: 'bg-[#E50914] text-white',
+                svg: `<span class="font-black text-base font-serif">N</span>`
+            },
+            '005930': {
+                bg: 'bg-[#1428A0] text-white',
+                svg: `<span class="font-black tracking-tighter text-[9px]">SAMSUNG</span>`
+            },
+            '000660': {
+                bg: 'bg-[#E4002B] text-white',
+                svg: `<span class="font-black text-xs">SK</span>`
+            },
+            '005380': {
+                bg: 'bg-[#002C5F] text-white',
+                svg: `<span class="font-black text-[10px] italic">HYUNDAI</span>`
+            },
+            '373220': {
+                bg: 'bg-[#C40043] text-white',
+                svg: `<span class="font-black text-xs">LG</span>`
+            },
+            '035420': {
+                bg: 'bg-[#03C75A] text-white',
+                svg: `<span class="font-black text-sm">N</span>`
+            },
+            '035720': {
+                bg: 'bg-[#FEE500] text-gray-900',
+                svg: `<span class="font-black text-xs">talk</span>`
+            },
+            '012450': {
+                bg: 'bg-[#F37321] text-white',
+                svg: `<span class="font-black text-[9px]">HANWHA</span>`
+            },
+            '068270': {
+                bg: 'bg-[#008851] text-white',
+                svg: `<span class="font-black text-[9px]">CELL</span>`
+            },
+            '105560': {
+                bg: 'bg-[#FFBC00] text-gray-950',
+                svg: `<span class="font-black text-xs">KB</span>`
+            },
+            '055550': {
+                bg: 'bg-[#0046FF] text-white',
+                svg: `<span class="font-black text-xs">신한</span>`
+            },
+            '003230': {
+                bg: 'bg-gradient-to-tr from-rose-600 to-amber-500 text-white',
+                svg: `<i class="fa-solid fa-fire text-xs"></i>`
+            },
+            '196170': {
+                bg: 'bg-purple-700 text-white',
+                svg: `<i class="fa-solid fa-dna text-xs"></i>`
+            },
+            '247540': {
+                bg: 'bg-emerald-600 text-white',
+                svg: `<i class="fa-solid fa-bolt text-xs"></i>`
+            },
+            '086520': {
+                bg: 'bg-teal-600 text-white',
+                svg: `<i class="fa-solid fa-leaf text-xs"></i>`
+            },
+            '277810': {
+                bg: 'bg-indigo-600 text-white',
+                svg: `<i class="fa-solid fa-robot text-xs"></i>`
+            },
+            '259960': {
+                bg: 'bg-amber-400 text-black',
+                svg: `<span class="font-black text-[9px]">PUBG</span>`
+            },
+            '034020': {
+                bg: 'bg-[#0033A0] text-white',
+                svg: `<span class="font-black text-[9px]">DOOSAN</span>`
+            },
+            '006400': {
+                bg: 'bg-[#003B89] text-white',
+                svg: `<span class="font-black text-[9px]">SDI</span>`
+            },
+            '207940': {
+                bg: 'bg-gradient-to-tr from-blue-700 to-cyan-600 text-white',
+                svg: `<span class="font-bold text-[8px]">S-BIO</span>`
+            },
+            '079550': {
+                bg: 'bg-rose-700 text-white',
+                svg: `<span class="font-black text-xs">LIG</span>`
+            },
+            '047810': {
+                bg: 'bg-sky-700 text-white',
+                svg: `<i class="fa-solid fa-plane text-xs"></i>`
+            },
+            '000270': {
+                bg: 'bg-slate-900 border border-gray-700 text-white',
+                svg: `<span class="font-black text-xs tracking-wider">KIA</span>`
+            },
+            '005490': {
+                bg: 'bg-[#004B87] text-white',
+                svg: `<span class="font-black text-[9px]">POSCO</span>`
+            },
+            '329180': {
+                bg: 'bg-emerald-800 text-white',
+                svg: `<span class="font-black text-[9px]">HD현대</span>`
+            },
+            'LLY': {
+                bg: 'bg-[#D52B1E] text-white',
+                svg: `<span class="font-serif italic font-bold text-xs">Lilly</span>`
+            },
+            'COST': {
+                bg: 'bg-[#E31837] text-white',
+                svg: `<span class="font-black text-[9px]">COSTCO</span>`
+            },
+            'BRK.B': {
+                bg: 'bg-[#00205B] text-white',
+                svg: `<span class="font-black text-xs">BRK</span>`
+            },
+            'JPM': {
+                bg: 'bg-[#0A2540] text-white',
+                svg: `<span class="font-black text-xs">JPM</span>`
+            },
+            'DIS': {
+                bg: 'bg-[#113CCF] text-white',
+                svg: `<i class="fa-solid fa-wand-sparkles text-xs"></i>`
+            },
+            'SMCI': {
+                bg: 'bg-gradient-to-tr from-blue-700 to-emerald-600 text-white',
+                svg: `<span class="font-black text-[8px]">SMCI</span>`
+            },
+            'ARM': {
+                bg: 'bg-[#0091BD] text-white',
+                svg: `<span class="font-black text-xs">arm</span>`
+            },
+            'MSTR': {
+                bg: 'bg-[#D9232A] text-white',
+                svg: `<i class="fa-brands fa-bitcoin text-xs"></i>`
+            },
+            'ASML': {
+                bg: 'bg-[#001C53] text-white',
+                svg: `<span class="font-black text-[9px]">ASML</span>`
+            },
+            'AVGO': {
+                bg: 'bg-[#CC092F] text-white',
+                svg: `<span class="font-black text-[9px]">AVGO</span>`
+            },
+            'TSM': {
+                bg: 'bg-slate-900 border border-red-500/40 text-white',
+                svg: `<span class="font-black text-xs text-red-500">tsmc</span>`
+            },
+            'AMD': {
+                bg: 'bg-[#ED1C24] text-white',
+                svg: `<span class="font-black text-xs">AMD</span>`
+            }
+        };
+
+        function getStockLogoHtml(stock, sizeClass = 'w-10 h-10') {
+            if (!stock) return '';
+            const logoData = stockLogosMap[stock.id] || stockLogosMap[stock.symbol] || {
+                bg: 'bg-gradient-to-tr from-blue-600 to-indigo-600 text-white',
+                svg: `<span class="font-extrabold text-xs">${stock.name.substring(0, 2)}</span>`
+            };
+            
+            return `
+                <div class="${sizeClass} rounded-2xl ${logoData.bg} flex items-center justify-center shrink-0 shadow-sm overflow-hidden select-none">
+                    ${logoData.svg}
+                </div>
+            `;
+        }
+
         const stocksData = {
             overseas: [
-                { id: "AAPL", name: "애플", symbol: "AAPL", price: 217270, change: 1.8, color: "#000000", icon: "fa-brands fa-apple", volume: "12.4M", per: 32.1, mcap: "3,250조" },
-                { id: "TSLA", name: "테슬라", symbol: "TSLA", price: 312500, change: -1.2, color: "#E11D48", icon: "fa-solid fa-bolt", volume: "24.8M", per: 68.4, mcap: "980조" },
-                { id: "NVDA", name: "엔비디아", symbol: "NVDA", price: 172000, change: 3.4, color: "#16A34A", icon: "fa-solid fa-microchip", volume: "45.1M", per: 54.2, mcap: "4,100조" },
-                { id: "MSFT", name: "마이크로소프트", symbol: "MSFT", price: 595000, change: 0.8, color: "#00A4EF", icon: "fa-brands fa-microsoft", volume: "8.2M", per: 35.0, mcap: "3,800조" },
-                { id: "AMZN", name: "아마존", symbol: "AMZN", price: 260000, change: 1.1, color: "#FF9900", icon: "fa-brands fa-amazon", volume: "14.5M", per: 42.1, mcap: "2,400조" },
-                { id: "GOOGL", name: "알파벳 (구글)", symbol: "GOOGL", price: 245000, change: -0.5, color: "#4285F4", icon: "fa-brands fa-google", volume: "10.1M", per: 24.3, mcap: "2,100조" },
-                { id: "META", name: "메타", symbol: "META", price: 820000, change: 2.3, color: "#0668E1", icon: "fa-brands fa-meta", volume: "9.8M", per: 28.5, mcap: "1,950조" },
-                { id: "PLTR", name: "팔란티어", symbol: "PLTR", price: 98000, change: 5.6, color: "#000000", icon: "fa-solid fa-database", volume: "38.2M", per: 85.0, mcap: "210조" }
+                {
+                    id: 'NVDA', name: '엔비디아', symbol: 'NVDA', usdPrice: 212.00, price: Math.round(212.00 * USD_KRW_RATE),
+                    change: 3.40, changeVal: 6.96, category: 'popular', sector: 'AI 반도체', mcap: '4,500조원', per: '48.2',
+                    high52: 326000, low52: 226000, fav: true,
+                    chartData: [275000,278000,281000,279000,283000,286000,284000,288000,290000,292560]
+                },
+                {
+                    id: 'AAPL', name: '애플', symbol: 'AAPL', usdPrice: 331.50, price: Math.round(331.50 * USD_KRW_RATE),
+                    change: 1.20, changeVal: 3.93, category: 'popular', sector: '빅테크', mcap: '4,800조원', per: '34.5',
+                    high52: 480000, low52: 390000, fav: true,
+                    chartData: [445000,448000,450000,452000,449000,453000,455000,457470]
+                },
+                {
+                    id: 'MSFT', name: '마이크로소프트', symbol: 'MSFT', usdPrice: 507.00, price: Math.round(507.00 * USD_KRW_RATE),
+                    change: 2.29, changeVal: 11.35, category: 'popular', sector: '소프트웨어', mcap: '5,100조원', per: '36.1',
+                    high52: 730000, low52: 580000, fav: false,
+                    chartData: [680000,685000,690000,688000,694000,699660]
+                },
+                {
+                    id: 'TSLA', name: '테슬라', symbol: 'TSLA', usdPrice: 362.00, price: Math.round(362.00 * USD_KRW_RATE),
+                    change: -0.91, changeVal: -3.32, category: 'volume', sector: '전기차 / AI', mcap: '1,600조원', per: '72.0',
+                    high52: 580000, low52: 280000, fav: true,
+                    chartData: [512000,508000,515000,505000,498000,499560]
+                },
+                {
+                    id: 'GOOGL', name: '알파벳 A (구글)', symbol: 'GOOGL', usdPrice: 346.50, price: Math.round(346.50 * USD_KRW_RATE),
+                    change: 2.35, changeVal: 7.95, category: 'gainer', sector: '검색 / AI', mcap: '3,200조원', per: '26.4',
+                    high52: 500000, low52: 320000, fav: false,
+                    chartData: [460000,465000,470000,472000,478170]
+                },
+                {
+                    id: 'META', name: '메타 (페이스북)', symbol: 'META', usdPrice: 661.50, price: Math.round(661.50 * USD_KRW_RATE),
+                    change: 2.09, changeVal: 13.55, category: 'gainer', sector: 'SNS / AI', mcap: '2,300조원', per: '28.5',
+                    high52: 950000, low52: 620000, fav: false,
+                    chartData: [880000,892000,905000,912870]
+                },
+                {
+                    id: 'AMZN', name: '아마존', symbol: 'AMZN', usdPrice: 220.00, price: Math.round(220.00 * USD_KRW_RATE),
+                    change: 0.85, changeVal: 1.85, category: 'popular', sector: '이커머스 / 클라우드', mcap: '3,100조원', per: '42.0',
+                    high52: 320000, low52: 240000, fav: false,
+                    chartData: [298000,300000,301500,303600]
+                },
+                {
+                    id: 'PLTR', name: '팔란티어', symbol: 'PLTR', usdPrice: 90.00, price: Math.round(90.00 * USD_KRW_RATE),
+                    change: 5.80, changeVal: 4.93, category: 'gainer', sector: 'AI 빅데이터', mcap: '290조원', per: '110.0',
+                    high52: 135000, low52: 42000, fav: true,
+                    chartData: [112000,116000,120000,124200]
+                },
+                {
+                    id: 'AMD', name: 'AMD', symbol: 'AMD', usdPrice: 165.00, price: Math.round(165.00 * USD_KRW_RATE),
+                    change: -4.42, changeVal: -7.63, category: 'volume', sector: '반도체', mcap: '360조원', per: '55.0',
+                    high52: 290000, low52: 180000, fav: false,
+                    chartData: [242000,238000,232000,227700]
+                },
+                {
+                    id: 'AVGO', name: '브로드컴', symbol: 'AVGO', usdPrice: 235.00, price: Math.round(235.00 * USD_KRW_RATE),
+                    change: 1.60, changeVal: 3.70, category: 'popular', sector: '통신 반도체', mcap: '1,500조원', per: '38.0',
+                    high52: 350000, low52: 210000, fav: false,
+                    chartData: [315000,318000,320000,324300]
+                },
+                {
+                    id: 'TSM', name: 'TSMC', symbol: 'TSM', usdPrice: 260.00, price: Math.round(260.00 * USD_KRW_RATE),
+                    change: 2.10, changeVal: 5.35, category: 'popular', sector: '파운드리', mcap: '1,800조원', per: '31.0',
+                    high52: 380000, low52: 220000, fav: false,
+                    chartData: [345000,350000,354000,358800]
+                },
+                {
+                    id: 'NFLX', name: '넷플릭스', symbol: 'NFLX', usdPrice: 720.00, price: Math.round(720.00 * USD_KRW_RATE),
+                    change: 0.90, changeVal: 6.42, category: 'popular', sector: '미디어 스트리밍', mcap: '430조원', per: '41.2',
+                    high52: 1050000, low52: 780000, fav: false,
+                    chartData: [975000,982000,990000,993600]
+                },
+                {
+                    id: 'LLY', name: '일라이 릴리', symbol: 'LLY', usdPrice: 850.00, price: Math.round(850.00 * USD_KRW_RATE),
+                    change: 1.45, changeVal: 12.15, category: 'popular', sector: '제약 / 비만치료제', mcap: '1,100조원', per: '62.0',
+                    high52: 1300000, low52: 950000, fav: false,
+                    chartData: [1150000,1162000,1173000]
+                },
+                {
+                    id: 'COST', name: '코스트코', symbol: 'COST', usdPrice: 900.00, price: Math.round(900.00 * USD_KRW_RATE),
+                    change: 0.65, changeVal: 5.81, category: 'popular', sector: '유통 / 소비재', mcap: '580조원', per: '54.0',
+                    high52: 1320000, low52: 1050000, fav: false,
+                    chartData: [1230000,1238000,1242000]
+                },
+                {
+                    id: 'COIN', name: '코인베이스', symbol: 'COIN', usdPrice: 290.00, price: Math.round(290.00 * USD_KRW_RATE),
+                    change: 4.20, changeVal: 11.70, category: 'gainer', sector: '가상자산 거래소', mcap: '100조원', per: '45.0',
+                    high52: 450000, low52: 210000, fav: true,
+                    chartData: [375000,388000,395000,400200]
+                },
+                {
+                    id: 'BRK.B', name: '버크셔 해서웨이', symbol: 'BRK.B', usdPrice: 450.00, price: Math.round(450.00 * USD_KRW_RATE),
+                    change: 0.30, changeVal: 1.34, category: 'popular', sector: '금융 투자', mcap: '1,300조원', per: '21.0',
+                    high52: 650000, low52: 520000, fav: false,
+                    chartData: [618000,620000,621000]
+                },
+                {
+                    id: 'JPM', name: 'JP모건 체이스', symbol: 'JPM', usdPrice: 225.00, price: Math.round(225.00 * USD_KRW_RATE),
+                    change: 0.80, changeVal: 1.78, category: 'popular', sector: '글로벌 은행', mcap: '890조원', per: '12.8',
+                    high52: 330000, low52: 240000, fav: false,
+                    chartData: [306000,308000,310500]
+                },
+                {
+                    id: 'DIS', name: '디즈니', symbol: 'DIS', usdPrice: 115.00, price: Math.round(115.00 * USD_KRW_RATE),
+                    change: -0.45, changeVal: -0.52, category: 'volume', sector: '엔터테인먼트', mcap: '290조원', per: '38.0',
+                    high52: 180000, low52: 120000, fav: false,
+                    chartData: [160000,159000,158700]
+                },
+                {
+                    id: 'SBUX', name: '스타벅스', symbol: 'SBUX', usdPrice: 98.00, price: Math.round(98.00 * USD_KRW_RATE),
+                    change: 1.10, changeVal: 1.06, category: 'popular', sector: '식음료', mcap: '150조원', per: '27.0',
+                    high52: 145000, low52: 110000, fav: false,
+                    chartData: [133000,134500,135240]
+                },
+                {
+                    id: 'NKE', name: '나이키', symbol: 'NKE', usdPrice: 85.00, price: Math.round(85.00 * USD_KRW_RATE),
+                    change: -1.20, changeVal: -1.03, category: 'volume', sector: '의류 / 스포츠', mcap: '170조원', per: '24.0',
+                    high52: 140000, low52: 105000, fav: false,
+                    chartData: [119000,118000,117300]
+                },
+                {
+                    id: 'SMCI', name: '슈퍼마이크로컴퓨터', symbol: 'SMCI', usdPrice: 48.00, price: Math.round(48.00 * USD_KRW_RATE),
+                    change: 8.50, changeVal: 3.76, category: 'gainer', sector: 'AI 서버', mcap: '40조원', per: '18.0',
+                    high52: 120000, low52: 38000, fav: false,
+                    chartData: [58000,62000,66240]
+                },
+                {
+                    id: 'ARM', name: 'ARM 홀딩스', symbol: 'ARM', usdPrice: 145.00, price: Math.round(145.00 * USD_KRW_RATE),
+                    change: 3.10, changeVal: 4.36, category: 'gainer', sector: '반도체 IP', mcap: '210조원', per: '95.0',
+                    high52: 240000, low52: 140000, fav: false,
+                    chartData: [188000,194000,200100]
+                },
+                {
+                    id: 'MSTR', name: '마이크로스트래티지', symbol: 'MSTR', usdPrice: 320.00, price: Math.round(320.00 * USD_KRW_RATE),
+                    change: 7.20, changeVal: 21.48, category: 'gainer', sector: '비트코인 보유 기업', mcap: '95조원', per: 'N/A',
+                    high52: 620000, low52: 180000, fav: true,
+                    chartData: [390000,412000,441600]
+                },
+                {
+                    id: 'ASML', name: 'ASML', symbol: 'ASML', usdPrice: 950.00, price: Math.round(950.00 * USD_KRW_RATE),
+                    change: -1.80, changeVal: -17.43, category: 'volume', sector: '노광장비', mcap: '520조원', per: '42.0',
+                    high52: 1550000, low52: 1100000, fav: false,
+                    chartData: [1340000,1325000,1311000]
+                }
             ],
             domestic: [
-                { id: "005930", name: "삼성전자", symbol: "005930", price: 68500, change: 0.7, color: "#1D4ED8", icon: "fa-solid fa-mobile-screen", volume: "15.8M", per: 14.2, mcap: "408조" },
-                { id: "000660", name: "SK하이닉스", symbol: "000660", price: 187200, change: 2.1, color: "#EA580C", icon: "fa-solid fa-memory", volume: "8.4M", per: 18.5, mcap: "136조" },
-                { id: "035420", name: "NAVER", symbol: "035420", price: 174500, change: -0.6, color: "#16A34A", icon: "fa-solid fa-square-n", volume: "1.2M", per: 21.0, mcap: "28조" },
-                { id: "035720", name: "카카오", symbol: "035720", price: 42300, change: -1.1, color: "#FACC15", icon: "fa-solid fa-comment", volume: "2.5M", per: 30.1, mcap: "18조" },
-                { id: "005380", name: "현대차", symbol: "005380", price: 242000, change: 1.9, color: "#1E3A8A", icon: "fa-solid fa-car", volume: "3.1M", per: 5.8, mcap: "51조" },
-                { id: "012450", name: "한화에어로스페이스", symbol: "012450", price: 340000, change: 4.2, color: "#EA580C", icon: "fa-solid fa-plane-up", volume: "4.8M", per: 25.4, mcap: "17조" }
+                {
+                    id: '005930', name: '삼성전자', symbol: '005930', price: 267000, change: 2.10, changeVal: 5500,
+                    category: 'popular', sector: '반도체', mcap: '1,747조원', per: '35.3', high52: 374000, low52: 67500, fav: true,
+                    chartData: [255000,258000,260000,262500,267000]
+                },
+                {
+                    id: '000660', name: 'SK하이닉스', symbol: '000660', price: 176500, change: -0.20, changeVal: -350,
+                    category: 'popular', sector: 'HBM 반도체', mcap: '128조원', per: '11.2', high52: 240000, low52: 140000, fav: true,
+                    chartData: [180000,178000,179000,176500]
+                },
+                {
+                    id: '005380', name: '현대차', symbol: '005380', price: 382500, change: -1.67, changeVal: -6500,
+                    category: 'volume', sector: '자동차 / 자율주행', mcap: '100조원', per: '7.2', high52: 783000, low52: 210000, fav: true,
+                    chartData: [398000,392000,388000,382500]
+                },
+                {
+                    id: '373220', name: 'LG에너지솔루션', symbol: '373220', price: 360000, change: -1.92, changeVal: -7000,
+                    category: 'volume', sector: '2차전지 배터리', mcap: '84조원', per: '68.0', high52: 527000, low52: 290500, fav: false,
+                    chartData: [375000,370000,368000,360000]
+                },
+                {
+                    id: '207940', name: '삼성바이오로직스', symbol: '207940', price: 1420000, change: 1.31, changeVal: 18400,
+                    category: 'popular', sector: '바이오 CDMO', mcap: '65조원', per: '35.8', high52: 1987000, low52: 982000, fav: true,
+                    chartData: [1380000,1395000,1400000,1420000]
+                },
+                {
+                    id: '035420', name: 'NAVER', symbol: '035420', price: 206500, change: -0.72, changeVal: -1500,
+                    category: 'popular', sector: '인터넷 / AI 플랫폼', mcap: '32조원', per: '16.5', high52: 304000, low52: 181100, fav: false,
+                    chartData: [210000,208000,207500,206500]
+                },
+                {
+                    id: '035720', name: '카카오', symbol: '035720', price: 42500, change: 0.95, changeVal: 400,
+                    category: 'popular', sector: '모바일 플랫폼', mcap: '19조원', per: '28.0', high52: 62000, low52: 34000, fav: false,
+                    chartData: [415000,42000,42100,42500]
+                },
+                {
+                    id: '068270', name: '셀트리온', symbol: '068270', price: 205000, change: 2.50, changeVal: 5000,
+                    category: 'gainer', sector: '바이오시밀러', mcap: '44조원', per: '38.0', high52: 240000, low52: 160000, fav: false,
+                    chartData: [195000,198000,201000,205000]
+                },
+                {
+                    id: '012450', name: '한화에어로스페이스', symbol: '012450', price: 350000, change: 4.80, changeVal: 16000,
+                    category: 'gainer', sector: '방산 / 우주항공', mcap: '17조원', per: '22.0', high52: 390000, low52: 120000, fav: true,
+                    chartData: [320000,332000,341000,350000]
+                },
+                {
+                    id: '000270', name: '기아', symbol: '000270', price: 125000, change: 0.80, changeVal: 1000,
+                    category: 'popular', sector: '자동차', mcap: '50조원', per: '5.8', high52: 135000, low52: 82000, fav: false,
+                    chartData: [122000,123500,124000,125000]
+                },
+                {
+                    id: '005490', name: 'POSCO홀딩스', symbol: '005490', price: 370000, change: -0.50, changeVal: -1800,
+                    category: 'volume', sector: '철강 / 리튬', mcap: '31조원', per: '14.0', high52: 580000, low52: 330000, fav: false,
+                    chartData: [375000,373000,370000]
+                },
+                {
+                    id: '196170', name: '알테오젠', symbol: '196170', price: 380000, change: 6.20, changeVal: 22200,
+                    category: 'gainer', sector: '바이오 플랫폼', mcap: '20조원', per: '120.0', high52: 450000, low52: 120000, fav: true,
+                    chartData: [340000,355000,368000,380000]
+                },
+                {
+                    id: '247540', name: '에코프로비엠', symbol: '247540', price: 180000, change: 1.10, changeVal: 1950,
+                    category: 'volume', sector: '양극재', mcap: '17조원', per: '75.0', high52: 320000, low52: 150000, fav: false,
+                    chartData: [175000,178000,180000]
+                },
+                {
+                    id: '086520', name: '에코프로', symbol: '086520', price: 82000, change: 1.85, changeVal: 1490,
+                    category: 'volume', sector: '2차전지 지주사', mcap: '22조원', per: '88.0', high52: 150000, low52: 65000, fav: false,
+                    chartData: [79000,80500,82000]
+                },
+                {
+                    id: '105560', name: 'KB금융', symbol: '105560', price: 88500, change: 2.30, changeVal: 1990,
+                    category: 'popular', sector: '금융 지주', mcap: '35조원', per: '6.5', high52: 98000, low52: 51000, fav: false,
+                    chartData: [84000,86200,88500]
+                },
+                {
+                    id: '055550', name: '신한지주', symbol: '055550', price: 55200, change: 1.65, changeVal: 890,
+                    category: 'popular', sector: '금융 지주', mcap: '28조원', per: '5.9', high52: 64000, low52: 38000, fav: false,
+                    chartData: [53000,54200,55200]
+                },
+                {
+                    id: '003230', name: '삼양식품', symbol: '003230', price: 620000, change: 3.80, changeVal: 22700,
+                    category: 'gainer', sector: '음식료 / 불닭볶음면', mcap: '4.6조원', per: '18.5', high52: 740000, low52: 210000, fav: true,
+                    chartData: [580000,600000,620000]
+                },
+                {
+                    id: '329180', name: 'HD현대중공업', symbol: '329180', price: 210000, change: 3.10, changeVal: 6300,
+                    category: 'gainer', sector: '조선 / 친환경선박', mcap: '18조원', per: '32.0', high52: 240000, low52: 110000, fav: false,
+                    chartData: [198000,204000,210000]
+                },
+                {
+                    id: '079550', name: 'LIG넥스원', symbol: '079550', price: 230000, change: 2.90, changeVal: 6480,
+                    category: 'gainer', sector: '방산 / 유도무기', mcap: '5조원', per: '24.0', high52: 260000, low52: 120000, fav: false,
+                    chartData: [218000,224000,230000]
+                },
+                {
+                    id: '047810', name: 'KAI 한국항공우주', symbol: '047810', price: 62000, change: 1.15, changeVal: 700,
+                    category: 'popular', sector: '항공방산', mcap: '6조원', per: '26.0', high52: 68000, low52: 45000, fav: false,
+                    chartData: [60000,61200,62000]
+                },
+                {
+                    id: '277810', name: '레인보우로보틱스', symbol: '277810', price: 160000, change: 5.20, changeVal: 7900,
+                    category: 'gainer', sector: '로봇 / 휴머노이드', mcap: '3.1조원', per: '150.0', high52: 220000, low52: 120000, fav: false,
+                    chartData: [145000,152000,160000]
+                },
+                {
+                    id: '259960', name: '크래프톤', symbol: '259960', price: 340000, change: 1.49, changeVal: 5000,
+                    category: 'popular', sector: '게임 / 배틀그라운드', mcap: '16조원', per: '21.0', high52: 380000, low52: 190000, fav: false,
+                    chartData: [330000,335000,340000]
+                },
+                {
+                    id: '034020', name: '두산에너빌리티', symbol: '034020', price: 21500, change: -0.90, changeVal: -195,
+                    category: 'volume', sector: '원전 / SMR', mcap: '13조원', per: '35.0', high52: 250000, low52: 14000, fav: false,
+                    chartData: [22200,21800,21500]
+                },
+                {
+                    id: '006400', name: '삼성SDI', symbol: '006400', price: 325000, change: -1.20, changeVal: -3950,
+                    category: 'volume', sector: '2차전지', mcap: '22조원', per: '18.0', high52: 480000, low52: 310000, fav: false,
+                    chartData: [332000,328000,325000]
+                }
             ]
         };
 
-        // User Wallet State
-        let userWallet = {
+        let currentTab = 'overseas';
+        let currentCategory = 'all';
+        let selectedStock = stocksData.overseas[0]; // Default NVDA
+        let chartInstance = null;
+        let pieChartInstance = null;
+        let chartType = 'line';
+        let selectedTimeframe = '1D';
+        let liveTickerTimer = null;
+
+        // User Account State
+        let userAccount = {
+            totalAssets: 10000000,
             cash: 10000000,
-            holdings: {}, // { symbol: { qty, avgPrice } }
-            favorites: ["AAPL", "005930", "NVDA"],
+            holdings: [],
             transactions: []
         };
 
-        // Community Feed Mock State
-        let communityPosts = [
-            { id: 1, user: "서학개미1004", text: "오늘 실적 발표 앞두고 가 가볼까요? 🚀", time: "방금 전", likes: 14, symbol: "AAPL" },
-            { id: 2, user: "삼성전자장기투자", text: "반도체 수율 개선 기대감으로 목표가 상향 조정 나왔네요.", time: "3분 전", likes: 8, symbol: "005930" },
-            { id: 3, user: "AI돌풍", text: "엔비디아는 눌림목마다 사모으는 게 답인 것 같습니다.", time: "12분 전", likes: 25, symbol: "NVDA" }
-        ];
-
-        // Active State flags
-        let currentTab = "overseas";
-        let activeCategoryFilter = "all";
-        let selectedStock = stocksData.overseas[0];
-        let currentChartType = "line";
-        let currentChartTimeframe = "1D";
-        let tradeType = "buy"; // buy | sell
-        let activeChartObj = null;
-        let activePieObj = null;
-        let tickerInterval = null;
-        let currentAppIconTheme = "toss-blue";
-
-        const appIconThemes = {
-            "toss-blue": {
-                name: "토스 블루",
-                bgClass: "bg-gradient-to-tr from-blue-600 to-indigo-500",
-                iconClass: "fa-solid fa-chart-pie",
-                color: "#3182f6",
-                symbolColor: "white",
-                shadowClass: "shadow-blue-500/30",
-                borderClass: "border-white/20"
-            },
-            "dark-cyber": {
-                name: "다크 사이버",
-                bgClass: "bg-gradient-to-tr from-gray-900 via-gray-800 to-black",
-                iconClass: "fa-solid fa-bolt",
-                color: "#06b6d4",
-                symbolColor: "#06b6d4",
-                shadowClass: "shadow-cyan-500/30",
-                borderClass: "border-cyan-500/40"
-            },
-            "neon-green": {
-                name: "네온 그린",
-                bgClass: "bg-gradient-to-tr from-emerald-600 to-teal-400",
-                iconClass: "fa-solid fa-chart-line",
-                color: "#10b981",
-                symbolColor: "white",
-                shadowClass: "shadow-emerald-500/30",
-                borderClass: "border-white/20"
-            },
-            "luxury-gold": {
-                name: "럭셔리 골드",
-                bgClass: "bg-gradient-to-tr from-amber-600 via-amber-500 to-yellow-300",
-                iconClass: "fa-solid fa-crown",
-                color: "#f59e0b",
-                symbolColor: "#0f172a",
-                shadowClass: "shadow-amber-500/30",
-                borderClass: "border-yellow-200/40"
-            },
-            "sunset-red": {
-                name: "선셋 레드",
-                bgClass: "bg-gradient-to-tr from-rose-600 to-orange-400",
-                iconClass: "fa-solid fa-fire",
-                color: "#f43f5e",
-                symbolColor: "white",
-                shadowClass: "shadow-rose-500/30",
-                borderClass: "border-white/20"
-            }
-        };
-
-        // Web Audio API Sound Generator for Native App Tap/Execution
-        function playAppSound(type) {
-            const soundEnabled = document.getElementById("toggle-sound-check")?.checked;
-            if (!soundEnabled) return;
-
-            try {
-                const ctx = new (window.AudioContext || window.webkitAudioContext)();
-                const osc = ctx.createOscillator();
-                const gain = ctx.createGain();
-                osc.connect(gain);
-                gain.connect(ctx.destination);
-
-                if (type === "click") {
-                    osc.frequency.setValueAtTime(600, ctx.currentTime);
-                    gain.gain.setValueAtTime(0.05, ctx.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.05);
-                    osc.start();
-                    osc.stop(ctx.currentTime + 0.05);
-                } else if (type === "trade") {
-                    osc.type = 'triangle';
-                    osc.frequency.setValueAtTime(523.25, ctx.currentTime); // C5
-                    osc.frequency.setValueAtTime(659.25, ctx.currentTime + 0.1); // E5
-                    gain.gain.setValueAtTime(0.1, ctx.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.25);
-                    osc.start();
-                    osc.stop(ctx.currentTime + 0.25);
-                }
-            } catch (e) {}
-        }
+        // Load persisted state if exists
+        try {
+            const savedAcc = localStorage.getItem('arit_user_account');
+            if(savedAcc) userAccount = JSON.parse(savedAcc);
+        } catch(e) {}
 
         window.onload = function() {
-            loadWallet();
             renderStockList();
-            updateHeaderUI();
-            renderOrderBook();
+            updateHeaderBalances();
+            renderDetailView();
             renderCommunityFeed();
-            initChart();
-            toggleLiveTicker(true);
-            
-            const savedTheme = localStorage.getItem("arit_app_icon_theme") || "toss-blue";
-            setAppIconTheme(savedTheme, false);
+            startLiveTickerLoop();
         };
 
-        function loadWallet() {
-            const saved = localStorage.getItem("arit_mts_wallet_v1");
-            if (saved) {
-                try { userWallet = JSON.parse(saved); } catch (e) {}
-            }
-        }
-
-        function saveWallet() {
-            localStorage.setItem("arit_mts_wallet_v1", JSON.stringify(userWallet));
-            updateHeaderUI();
-        }
-
-        function updateHeaderUI() {
-            let holdingsVal = 0;
-            const all = [...stocksData.overseas, ...stocksData.domestic];
-            for (let sym in userWallet.holdings) {
-                const st = all.find(s => s.symbol === sym);
-                if (st) {
-                    holdingsVal += st.price * userWallet.holdings[sym].qty;
-                }
-            }
-            const totalAssets = userWallet.cash + holdingsVal;
-            document.getElementById("header-total-asset").innerText = totalAssets.toLocaleString() + " 원";
-            document.getElementById("header-cash").innerText = userWallet.cash.toLocaleString() + " 원";
-        }
-
-        function navigateTo(targetScreen) {
-            playAppSound("click");
-            const screens = ["home", "detail", "community", "portfolio", "settings"];
-            
-            screens.forEach(sc => {
-                const el = document.getElementById(`view-${sc}`);
-                const navBtn = document.getElementById(`nav-${sc}`);
-                
-                if (sc === targetScreen) {
-                    el.classList.remove("translate-x-full", "-translate-x-full");
-                    el.classList.add("translate-x-0");
-                    if (navBtn) {
-                        navBtn.className = "nav-btn flex flex-col items-center text-toss-blue";
-                    }
-                } else {
-                    el.classList.remove("translate-x-0");
-                    el.classList.add("translate-x-full");
-                    if (navBtn) {
-                        navBtn.className = "nav-btn flex flex-col items-center text-gray-400 hover:text-gray-700 dark:hover:text-gray-200";
-                    }
-                }
-            });
-
-            if (targetScreen === "portfolio") renderPortfolioView();
-        }
-
         function switchTab(tab) {
-            playAppSound("click");
             currentTab = tab;
-            document.querySelectorAll(".tab-btn").forEach(btn => {
-                btn.className = "tab-btn pb-2 text-gray-400 dark:text-gray-500 font-bold";
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active', 'border-b-2', 'border-gray-900', 'dark:border-white', 'text-gray-900', 'dark:text-white');
+                btn.classList.add('text-gray-400');
             });
 
             const activeBtn = document.getElementById(`tab-${tab}`);
-            if (activeBtn) {
-                activeBtn.className = "tab-btn active pb-2 border-b-2 border-gray-900 dark:border-white text-gray-900 dark:text-white font-bold";
+            if(activeBtn) {
+                activeBtn.classList.add('active', 'border-b-2', 'border-gray-900', 'dark:border-white', 'text-gray-900', 'dark:text-white');
+                activeBtn.classList.remove('text-gray-400');
             }
-
             renderStockList();
         }
 
         function filterCategory(cat) {
-            playAppSound("click");
-            activeCategoryFilter = cat;
-            document.querySelectorAll(".cat-chip").forEach(c => {
-                c.className = "cat-chip px-3 py-1.5 rounded-full font-semibold bg-gray-100 text-gray-600 dark:bg-toss-darkCard dark:text-gray-300 transition";
+            currentCategory = cat;
+            document.querySelectorAll('.cat-chip').forEach(chip => {
+                chip.className = "cat-chip px-3 py-1.5 rounded-full font-semibold bg-gray-100 text-gray-600 dark:bg-toss-darkCard dark:text-gray-300 transition";
             });
-            if (event && event.target) {
-                event.target.className = "cat-chip px-3 py-1.5 rounded-full font-bold bg-gray-900 text-white dark:bg-white dark:text-black transition";
+            const activeChip = document.getElementById(`cat-${cat}`);
+            if(activeChip) {
+                activeChip.className = "cat-chip px-3 py-1.5 rounded-full font-bold bg-gray-900 text-white dark:bg-white dark:text-black transition";
             }
             renderStockList();
         }
 
         function renderStockList() {
-            const container = document.getElementById("stock-list-feed");
-            const searchVal = document.getElementById("stock-search")?.value.toLowerCase().trim();
-
+            const listFeed = document.getElementById('stock-list-feed');
+            const searchVal = document.getElementById('stock-search').value.toLowerCase().trim();
+            
             let list = [];
-            if (currentTab === "favorites") {
-                const all = [...stocksData.overseas, ...stocksData.domestic];
-                list = all.filter(s => userWallet.favorites.includes(s.symbol));
-            } else {
-                list = [...stocksData[currentTab]];
+            if(currentTab === 'overseas') list = [...stocksData.overseas];
+            else if(currentTab === 'domestic') list = [...stocksData.domestic];
+            else if(currentTab === 'favorites') {
+                list = [...stocksData.overseas, ...stocksData.domestic].filter(s => s.fav);
             }
 
-            if (activeCategoryFilter === "gainer") {
-                list.sort((a, b) => b.change - a.change);
-            } else if (activeCategoryFilter === "popular") {
-                list.sort((a, b) => parseFloat(b.volume) - parseFloat(a.volume));
+            // Apply Category Filter
+            if(currentCategory === 'gainer') list = list.filter(s => s.change > 2.0);
+            else if(currentCategory === 'popular') list = list.filter(s => s.category === 'popular');
+            else if(currentCategory === 'volume') list = list.filter(s => s.category === 'volume' || Math.abs(s.change) > 1.5);
+
+            // Apply Search Query
+            if(searchVal) {
+                list = list.filter(s => 
+                    s.name.toLowerCase().includes(searchVal) || 
+                    s.symbol.toLowerCase().includes(searchVal) || 
+                    s.sector.toLowerCase().includes(searchVal)
+                );
             }
 
-            if (searchVal) {
-                list = list.filter(s => s.name.toLowerCase().includes(searchVal) || s.symbol.toLowerCase().includes(searchVal));
-            }
-
-            if (list.length === 0) {
-                container.innerHTML = `
+            if(list.length === 0) {
+                listFeed.innerHTML = `
                     <div class="py-12 text-center text-gray-400 text-xs">
-                        <i class="fa-solid fa-magnifying-glass text-2xl mb-2 text-gray-300"></i>
-                        <p>조회된 종목이 없습니다.</p>
+                        <i class="fa-solid fa-magnifying-glass text-2xl mb-2 block opacity-40"></i>
+                        조건에 일치하는 종목이 없습니다.
                     </div>
                 `;
                 return;
             }
 
-            let html = "";
-            list.forEach(s => {
-                const isUp = s.change >= 0;
-                const changeClass = isUp ? "text-toss-red dark:text-red-400" : "text-toss-blue dark:text-blue-400";
-                const changeSign = isUp ? "+" : "";
+            listFeed.innerHTML = list.map(stock => {
+                const isUp = stock.change >= 0;
+                const changeClass = isUp ? 'text-toss-red dark:text-red-400' : 'text-toss-blue dark:text-blue-400';
+                const sign = isUp ? '+' : '';
+                
+                let priceDisplay = `${stock.price.toLocaleString()}원`;
+                let diffDisplay = `${sign}${stock.changeVal.toLocaleString()}원`;
+                
+                if(stock.usdPrice) {
+                    priceDisplay = `$${stock.usdPrice.toFixed(2)} (${stock.price.toLocaleString()}원)`;
+                    diffDisplay = `${sign}$${stock.changeVal.toFixed(2)}`;
+                }
 
-                html += `
-                    <div onclick="selectStock('${s.symbol}')" class="py-3 px-1 flex items-center justify-between cursor-pointer hover:bg-gray-50 dark:hover:bg-toss-darkCard/50 transition rounded-2xl active-tap">
+                const logoHtml = getStockLogoHtml(stock, 'w-10 h-10');
+
+                return `
+                    <div onclick="selectAndGoToDetail('${stock.id}')" class="py-3 flex justify-between items-center active-tap cursor-pointer hover:bg-gray-50/50 dark:hover:bg-toss-darkCard/50 transition px-1 rounded-xl">
                         <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-2xl flex items-center justify-center text-white font-bold text-base shadow-xs shrink-0" style="background-color: ${s.color}">
-                                <i class="${s.icon}"></i>
-                            </div>
+                            <button onclick="event.stopPropagation(); toggleFavStock('${stock.id}')" class="text-gray-300 hover:text-amber-400 text-base transition shrink-0">
+                                <i class="${stock.fav ? 'fa-solid fa-star text-amber-400' : 'fa-regular fa-star'}"></i>
+                            </button>
+                            ${logoHtml}
                             <div>
-                                <div class="text-sm font-extrabold text-gray-900 dark:text-white leading-tight">
-                                    ${s.name}
+                                <div class="font-extrabold text-xs text-gray-900 dark:text-white flex items-center gap-1.5">
+                                    ${stock.name}
+                                    <span class="text-[9px] font-bold px-1.5 py-0.2 bg-gray-100 dark:bg-toss-darkCard text-gray-400 rounded">${stock.symbol}</span>
                                 </div>
-                                <div class="text-[10px] text-gray-400 font-bold mt-0.5">
-                                    ${s.symbol} • 거래량 ${s.volume}
-                                </div>
+                                <span class="text-[10px] text-gray-400 font-medium">${stock.sector}</span>
                             </div>
                         </div>
-
                         <div class="text-right">
-                            <div class="text-sm font-black text-gray-900 dark:text-white" id="list-price-${s.symbol}">
-                                ${s.price.toLocaleString()}원
-                            </div>
-                            <div class="text-xs font-bold ${changeClass}">
-                                ${changeSign}${s.change.toFixed(1)}%
+                            <div class="font-black text-xs text-gray-900 dark:text-white">${priceDisplay}</div>
+                            <div class="text-[11px] font-bold ${changeClass} flex items-center justify-end gap-1">
+                                <span>${sign}${stock.change.toFixed(2)}%</span>
+                                <span class="text-[9px] opacity-75">(${diffDisplay})</span>
                             </div>
                         </div>
                     </div>
                 `;
-            });
+            }).join('');
+        }
+
+        function selectAndGoToDetail(stockId) {
+            const all = [...stocksData.overseas, ...stocksData.domestic];
+            const found = all.find(s => s.id === stockId);
+            if(found) {
+                selectedStock = found;
+                renderDetailView();
+                navigateTo('detail');
+            }
+        }
+
+        function toggleFavStock(stockId) {
+            const all = [...stocksData.overseas, ...stocksData.domestic];
+            const found = all.find(s => s.id === stockId);
+            if(found) {
+                found.fav = !found.fav;
+                renderStockList();
+                if(selectedStock.id === stockId) {
+                    document.getElementById('detail-fav-star').innerHTML = `<i class="${found.fav ? 'fa-solid fa-star text-amber-400' : 'fa-regular fa-star text-gray-400'} text-base"></i>`;
+                }
+            }
+        }
+
+        function toggleCurrentFavorite() {
+            toggleFavStock(selectedStock.id);
+        }
+
+        function renderDetailView() {
+            const s = selectedStock;
+            document.getElementById('detail-header-title').innerText = s.name;
+            document.getElementById('detail-header-symbol').innerText = s.symbol;
+            
+            // Inject Stock Logo into Header and Card
+            document.getElementById('detail-header-logo-badge').innerHTML = getStockLogoHtml(s, 'w-7 h-7');
+            document.getElementById('detail-card-logo-badge').innerHTML = getStockLogoHtml(s, 'w-11 h-11');
+
+            const favStar = document.getElementById('detail-fav-star');
+            favStar.innerHTML = `<i class="${s.fav ? 'fa-solid fa-star text-amber-400' : 'fa-regular fa-star text-gray-400'} text-base"></i>`;
+
+            const isUp = s.change >= 0;
+            const sign = isUp ? '+' : '';
+            const bgBadge = isUp ? 'bg-toss-red' : 'bg-toss-blue';
+            const textColor = isUp ? 'text-toss-red dark:text-red-400' : 'text-toss-blue dark:text-blue-400';
+
+            document.getElementById('detail-price').innerText = `${s.price.toLocaleString()}원`;
+            
+            let diffTxt = `${sign}${s.changeVal.toLocaleString()}원`;
+            if(s.usdPrice) diffTxt = `${sign}$${s.changeVal.toFixed(2)} (${s.price.toLocaleString()}원)`;
+
+            document.getElementById('detail-change-container').innerHTML = `
+                <span class="px-2 py-0.5 rounded-md text-white ${bgBadge} text-[11px] font-black">${sign}${s.change.toFixed(2)}%</span>
+                <span class="${textColor}">${diffTxt}</span>
+            `;
+
+            document.getElementById('metric-52high').innerText = `${s.high52.toLocaleString()}원`;
+            document.getElementById('metric-52low').innerText = `${s.low52.toLocaleString()}원`;
+            document.getElementById('metric-mcap').innerText = s.mcap;
+            document.getElementById('metric-per').innerText = `${s.per}배 / ${s.sector}`;
+
+            renderOrderBook();
+            renderStockChart();
+        }
+
+        // Generate 10 Realtime Order Book Depth Levels
+        function renderOrderBook() {
+            const container = document.getElementById('order-book-container');
+            const basePrice = selectedStock.price;
+            const tick = basePrice > 100000 ? 500 : (basePrice > 10000 ? 100 : 10);
+            
+            let html = '';
+            
+            // 5 Ask Levels (매도 호가)
+            for(let i = 5; i >= 1; i--) {
+                const askPrice = basePrice + (i * tick);
+                const qty = Math.floor(Math.random() * 800) + 120;
+                const barWidth = Math.min(100, Math.floor((qty / 1000) * 100));
+                html += `
+                    <div class="grid grid-cols-3 py-1 items-center relative overflow-hidden ask-bar">
+                        <div class="text-[10px] text-gray-400 pl-2">매도</div>
+                        <div class="font-bold text-toss-blue dark:text-blue-400 text-center">${askPrice.toLocaleString()}</div>
+                        <div class="text-right pr-2 text-gray-500 font-mono">${qty.toLocaleString()}</div>
+                        <div class="absolute right-0 top-0 bottom-0 bg-blue-500/10 dark:bg-blue-500/20 pointer-events-none" style="width: ${barWidth}%"></div>
+                    </div>
+                `;
+            }
+
+            // Current Price Center Tick
+            html += `
+                <div class="grid grid-cols-3 py-1.5 items-center bg-gray-100 dark:bg-gray-800 font-extrabold my-0.5">
+                    <div class="text-[10px] text-gray-500 pl-2">현재가</div>
+                    <div class="text-center text-toss-red dark:text-red-400 text-xs">${basePrice.toLocaleString()}원</div>
+                    <div class="text-right pr-2 text-[10px] text-gray-400">체결중</div>
+                </div>
+            `;
+
+            // 5 Bid Levels (매수 호가)
+            for(let i = 1; i <= 5; i++) {
+                const bidPrice = Math.max(tick, basePrice - (i * tick));
+                const qty = Math.floor(Math.random() * 950) + 150;
+                const barWidth = Math.min(100, Math.floor((qty / 1000) * 100));
+                html += `
+                    <div class="grid grid-cols-3 py-1 items-center relative overflow-hidden bid-bar">
+                        <div class="text-[10px] text-gray-400 pl-2 font-mono">${qty.toLocaleString()}</div>
+                        <div class="font-bold text-toss-red dark:text-red-400 text-center">${bidPrice.toLocaleString()}</div>
+                        <div class="text-right pr-2 text-[10px] text-gray-400">매수</div>
+                        <div class="absolute left-0 top-0 bottom-0 bg-red-500/10 dark:bg-red-500/20 pointer-events-none" style="width: ${barWidth}%"></div>
+                    </div>
+                `;
+            }
 
             container.innerHTML = html;
         }
 
-        function selectStock(symbol) {
-            const all = [...stocksData.overseas, ...stocksData.domestic];
-            const found = all.find(s => s.symbol === symbol);
-            if (found) {
-                selectedStock = found;
-                updateDetailView();
-                navigateTo("detail");
-            }
-        }
+        function renderStockChart() {
+            const ctx = document.getElementById('stockChartCanvas').getContext('2d');
+            if(chartInstance) chartInstance.destroy();
 
-        function updateDetailView() {
-            if (!selectedStock) return;
-
-            document.getElementById("detail-header-title").innerText = selectedStock.name;
-            document.getElementById("detail-header-symbol").innerText = selectedStock.symbol;
-            document.getElementById("detail-price").innerText = selectedStock.price.toLocaleString() + "원";
-
+            const isDark = document.documentElement.classList.contains('dark');
             const isUp = selectedStock.change >= 0;
-            const badge = document.getElementById("detail-change-badge");
-            const diff = document.getElementById("detail-change-diff");
+            const strokeColor = isUp ? '#f04452' : '#3182f6';
+            const fillColor = isUp ? 'rgba(240, 68, 82, 0.12)' : 'rgba(49, 130, 246, 0.12)';
 
-            badge.innerText = `${isUp ? '+' : ''}${selectedStock.change.toFixed(1)}%`;
-            badge.className = `px-2 py-0.5 rounded-md text-white text-[11px] font-black ${isUp ? 'bg-toss-red' : 'bg-toss-blue'}`;
+            const labels = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '15:30'];
+            const rawData = selectedStock.chartData || [selectedStock.price * 0.98, selectedStock.price * 1.01, selectedStock.price];
 
-            const diffVal = Math.round(selectedStock.price * (Math.abs(selectedStock.change) / 100));
-            diff.innerText = `${isUp ? '+' : '-'}${diffVal.toLocaleString()}원`;
-            diff.className = isUp ? 'text-toss-red dark:text-red-400 font-bold' : 'text-toss-blue dark:text-blue-400 font-bold';
-
-            const isFav = userWallet.favorites.includes(selectedStock.symbol);
-            document.getElementById("detail-fav-star").innerHTML = isFav 
-                ? `<i class="fa-solid fa-star text-amber-400 text-base"></i>` 
-                : `<i class="fa-regular fa-star text-base"></i>`;
-
-            renderOrderBook();
-            updateChartData();
-        }
-
-        function initChart() {
-            const ctx = document.getElementById("stockChartCanvas")?.getContext("2d");
-            if (!ctx) return;
-
-            activeChartObj = new Chart(ctx, {
+            chartInstance = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '현재'],
+                    labels: labels.slice(0, rawData.length),
                     datasets: [{
-                        data: [210000, 212000, 211500, 214000, 213000, 216000, 217270],
-                        borderColor: '#f04452',
+                        data: rawData,
+                        borderColor: strokeColor,
                         borderWidth: 2.5,
+                        fill: true,
+                        backgroundColor: fillColor,
+                        tension: 0.35,
                         pointRadius: 0,
-                        tension: 0.2
+                        pointHoverRadius: 6,
+                        pointHoverBackgroundColor: strokeColor
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
                     plugins: { legend: { display: false } },
-                    scales: { x: { display: false }, y: { display: false } }
+                    scales: {
+                        x: { display: false },
+                        y: {
+                            display: true,
+                            grid: { color: isDark ? '#2c323b' : '#f3f4f6' },
+                            ticks: { color: isDark ? '#9ca3af' : '#6b7280', font: { size: 9 } }
+                        }
+                    }
                 }
             });
-        }
-
-        function updateChartData() {
-            if (!activeChartObj || !selectedStock) return;
-            const base = selectedStock.price;
-            const isUp = selectedStock.change >= 0;
-            const color = isUp ? '#f04452' : '#3182f6';
-
-            const points = [
-                Math.round(base * 0.98),
-                Math.round(base * 0.985),
-                Math.round(base * 0.99),
-                Math.round(base * 0.995),
-                Math.round(base * 0.992),
-                Math.round(base * 0.998),
-                base
-            ];
-
-            activeChartObj.data.datasets[0].data = points;
-            activeChartObj.data.datasets[0].borderColor = color;
-            activeChartObj.update();
         }
 
         function toggleChartType(type) {
-            playAppSound("click");
-            currentChartType = type;
-            document.getElementById("btn-chart-line").className = type === 'line' ? "px-2.5 py-1 rounded-lg bg-white dark:bg-gray-700 shadow-xs text-gray-900 dark:text-white" : "px-2.5 py-1 rounded-lg text-gray-400";
-            document.getElementById("btn-chart-candle").className = type === 'candle' ? "px-2.5 py-1 rounded-lg bg-white dark:bg-gray-700 shadow-xs text-gray-900 dark:text-white" : "px-2.5 py-1 rounded-lg text-gray-400";
-            showToast(`${type === 'line' ? '라인' : '캔들'} 차트로 변환되었습니다.`);
+            chartType = type;
+            document.getElementById('btn-chart-line').className = type === 'line' ? 'px-2.5 py-1 rounded-lg bg-gray-900 dark:bg-gray-700 text-white shadow-xs' : 'px-2.5 py-1 rounded-lg text-gray-400';
+            document.getElementById('btn-chart-candle').className = type === 'candle' ? 'px-2.5 py-1 rounded-lg bg-gray-900 dark:bg-gray-700 text-white shadow-xs' : 'px-2.5 py-1 rounded-lg text-gray-400';
+            renderStockChart();
         }
 
         function setChartTimeframe(tf) {
-            playAppSound("click");
-            currentChartTimeframe = tf;
-            document.querySelectorAll(".chart-time-btn").forEach(b => {
-                b.className = "chart-time-btn text-gray-400";
+            selectedTimeframe = tf;
+            document.querySelectorAll('.chart-time-btn').forEach(btn => {
+                btn.className = 'chart-time-btn text-gray-400';
             });
-            if (event && event.target) {
-                event.target.className = "chart-time-btn text-gray-900 dark:text-white font-extrabold border-b-2 border-gray-900 dark:border-white pb-0.5";
+            const activeBtn = document.getElementById(`tf-${tf}`);
+            if(activeBtn) {
+                activeBtn.className = 'chart-time-btn text-gray-900 dark:text-white font-extrabold border-b-2 border-gray-900 dark:border-white pb-0.5';
             }
-            updateChartData();
+            renderStockChart();
         }
 
-        function renderOrderBook() {
-            const container = document.getElementById("order-book-container");
-            if (!container || !selectedStock) return;
-
-            const basePrice = selectedStock.price;
-            let html = "";
-
-            // 5 Asks (매도 호가 - 파란색 계열)
-            for (let i = 5; i >= 1; i--) {
-                const price = Math.round(basePrice * (1 + (i * 0.003)));
-                const qty = Math.floor(Math.random() * 3000) + 200;
-                const widthPct = Math.min(100, Math.round((qty / 3500) * 100));
-
-                html += `
-                    <div class="grid grid-cols-3 py-1 items-center relative overflow-hidden">
-                        <div class="ask-bar absolute top-0 right-0 bottom-0 z-0" style="width: ${widthPct}%;"></div>
-                        <span class="z-10 text-toss-blue dark:text-blue-400 font-bold text-left pl-2">${price.toLocaleString()}</span>
-                        <span class="z-10 text-gray-400 text-center">+${(i * 0.3).toFixed(1)}%</span>
-                        <span class="z-10 text-gray-700 dark:text-gray-300 font-medium text-right pr-2">${qty.toLocaleString()} 주</span>
-                    </div>
-                `;
-            }
-
-            // Current Price Row
-            html += `
-                <div class="grid grid-cols-3 py-1.5 items-center font-black bg-gray-100 dark:bg-toss-darkCard border-y border-gray-200 dark:border-toss-darkBorder">
-                    <span class="text-gray-900 dark:text-white pl-2">${basePrice.toLocaleString()}</span>
-                    <span class="text-toss-red text-center">현재가</span>
-                    <span class="text-gray-900 dark:text-white text-right pr-2">체결중</span>
-                </div>
-            `;
-
-            // 5 Bids (매수 호가 - 빨간색 계열)
-            for (let i = 1; i <= 5; i++) {
-                const price = Math.round(basePrice * (1 - (i * 0.003)));
-                const qty = Math.floor(Math.random() * 3000) + 200;
-                const widthPct = Math.min(100, Math.round((qty / 3500) * 100));
-
-                html += `
-                    <div class="grid grid-cols-3 py-1 items-center relative overflow-hidden">
-                        <div class="bid-bar absolute top-0 left-0 bottom-0 z-0" style="width: ${widthPct}%;"></div>
-                        <span class="z-10 text-toss-red dark:text-red-400 font-bold text-left pl-2">${price.toLocaleString()}</span>
-                        <span class="z-10 text-gray-400 text-center">-${(i * 0.3).toFixed(1)}%</span>
-                        <span class="z-10 text-gray-700 dark:text-gray-300 font-medium text-right pr-2">${qty.toLocaleString()} 주</span>
-                    </div>
-                `;
-            }
-
-            container.innerHTML = html;
-        }
+        let currentTradeType = 'buy';
 
         function openTradeDrawer(type) {
-            playAppSound("click");
-            tradeType = type;
-            const sheet = document.getElementById("trade-sheet");
-            const drawer = document.getElementById("trade-drawer");
-            const title = document.getElementById("sheet-title");
-            const btn = document.getElementById("sheet-submit-btn");
+            currentTradeType = type;
+            const sheet = document.getElementById('trade-sheet');
+            const content = document.getElementById('trade-sheet-content');
+            
+            document.getElementById('trade-type-title').innerText = type === 'buy' ? '매수 주문' : '매도 주문';
+            document.getElementById('trade-type-title').className = `text-base font-extrabold ${type === 'buy' ? 'text-toss-red' : 'text-toss-blue'}`;
+            
+            document.getElementById('trade-stock-logo').innerHTML = getStockLogoHtml(selectedStock, 'w-9 h-9');
+            document.getElementById('trade-stock-name').innerText = selectedStock.name;
+            document.getElementById('trade-stock-symbol').innerText = selectedStock.symbol;
+            document.getElementById('trade-current-price').innerText = `${selectedStock.price.toLocaleString()}원`;
 
-            if (type === "buy") {
-                title.innerText = `${selectedStock.name} 매수하기`;
-                title.className = "text-base font-extrabold text-toss-red";
-                btn.innerText = "확인 및 매수 주문";
-                btn.className = "w-full bg-toss-red hover:bg-red-600 text-white font-extrabold py-3.5 rounded-2xl text-sm transition shadow-lg shadow-red-500/20 active-tap";
-                document.getElementById("sheet-avail-label").innerText = "주문 가능 현금";
-                document.getElementById("sheet-avail-val").innerText = userWallet.cash.toLocaleString() + " 원";
+            const btnSubmit = document.getElementById('btn-submit-trade');
+            btnSubmit.innerText = type === 'buy' ? '매수 주문 제출하기' : '매도 주문 제출하기';
+            btnSubmit.className = `w-full ${type === 'buy' ? 'bg-toss-red hover:bg-red-600' : 'bg-toss-blue hover:bg-blue-600'} text-white font-extrabold py-3.5 rounded-2xl text-sm transition shadow-lg active-tap mt-2`;
+
+            // Calculate Max Available Qty
+            let maxQty = 0;
+            if(type === 'buy') {
+                maxQty = Math.floor(userAccount.cash / selectedStock.price);
             } else {
-                title.innerText = `${selectedStock.name} 매도하기`;
-                title.className = "text-base font-extrabold text-toss-blue";
-                btn.innerText = "확인 및 매도 주문";
-                btn.className = "w-full bg-toss-blue hover:bg-blue-600 text-white font-extrabold py-3.5 rounded-2xl text-sm transition shadow-lg shadow-blue-500/20 active-tap";
-                document.getElementById("sheet-avail-label").innerText = "보유 수량";
-                const holding = userWallet.holdings[selectedStock.symbol];
-                document.getElementById("sheet-avail-val").innerText = `${holding ? holding.qty : 0} 주 보유`;
+                const holding = userAccount.holdings.find(h => h.id === selectedStock.id);
+                maxQty = holding ? holding.qty : 0;
             }
+            document.getElementById('trade-max-qty').innerText = `${maxQty.toLocaleString()}주`;
+            document.getElementById('trade-qty-input').value = Math.min(1, maxQty);
 
-            document.getElementById("sheet-current-price").innerText = selectedStock.price.toLocaleString() + " 원";
-            document.getElementById("trade-qty-input").value = 1;
-            recalcTradeTotal();
+            calculateTradeTotal();
 
-            sheet.classList.remove("opacity-0", "pointer-events-none");
-            drawer.classList.remove("translate-y-full");
-            drawer.classList.add("translate-y-0");
+            sheet.classList.remove('opacity-0', 'pointer-events-none');
+            content.classList.remove('translate-y-full');
         }
 
         function closeTradeDrawer() {
-            playAppSound("click");
-            const sheet = document.getElementById("trade-sheet");
-            const drawer = document.getElementById("trade-drawer");
-
-            drawer.classList.remove("translate-y-0");
-            drawer.classList.add("translate-y-full");
-            setTimeout(() => sheet.classList.add("opacity-0", "pointer-events-none"), 250);
+            const sheet = document.getElementById('trade-sheet');
+            const content = document.getElementById('trade-sheet-content');
+            content.classList.add('translate-y-full');
+            setTimeout(() => {
+                sheet.classList.add('opacity-0', 'pointer-events-none');
+            }, 200);
         }
 
-        function adjustTradeQty(delta) {
-            playAppSound("click");
-            const input = document.getElementById("trade-qty-input");
-            let val = parseInt(input.value) || 1;
-            input.value = Math.max(1, val + delta);
-            recalcTradeTotal();
+        function adjustQuantity(delta) {
+            const input = document.getElementById('trade-qty-input');
+            let val = parseInt(input.value) || 0;
+            val = Math.max(1, val + delta);
+            input.value = val;
+            calculateTradeTotal();
         }
 
-        function setTradePct(pct) {
-            playAppSound("click");
-            if (!selectedStock) return;
-            let qty = 1;
-            if (tradeType === "buy") {
-                const availCash = userWallet.cash * pct;
-                qty = Math.floor(availCash / selectedStock.price);
+        function setQuantityPct(pct) {
+            let maxQty = 0;
+            if(currentTradeType === 'buy') {
+                maxQty = Math.floor(userAccount.cash / selectedStock.price);
             } else {
-                const holding = userWallet.holdings[selectedStock.symbol];
-                const availQty = holding ? holding.qty : 0;
-                qty = Math.floor(availQty * pct);
+                const holding = userAccount.holdings.find(h => h.id === selectedStock.id);
+                maxQty = holding ? holding.qty : 0;
             }
-            document.getElementById("trade-qty-input").value = Math.max(1, qty);
-            recalcTradeTotal();
+            const targetQty = Math.max(1, Math.floor(maxQty * pct));
+            document.getElementById('trade-qty-input').value = targetQty;
+            calculateTradeTotal();
         }
 
-        function recalcTradeTotal() {
-            const qty = parseInt(document.getElementById("trade-qty-input").value) || 0;
+        function calculateTradeTotal() {
+            const qty = parseInt(document.getElementById('trade-qty-input').value) || 0;
             const total = qty * selectedStock.price;
-            const el = document.getElementById("sheet-total-price");
-            el.innerText = total.toLocaleString() + " 원";
-            el.className = tradeType === 'buy' ? 'text-lg font-black text-toss-red' : 'text-lg font-black text-toss-blue';
+            document.getElementById('trade-total-price').innerText = `${total.toLocaleString()} 원`;
         }
 
-        function executeOrder() {
-            const qty = parseInt(document.getElementById("trade-qty-input").value) || 0;
-            if (qty <= 0) return showToast("1주 이상 주문 수량을 입력해 주세요.", "error");
+        function playOrderSound(type) {
+            if(!document.getElementById('toggle-sound-check')?.checked) return;
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                
+                if (type === 'buy') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(523.25, ctx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.15);
+                    gain.gain.setValueAtTime(0.3, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.15);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.15);
+                } else {
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(659.25, ctx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(329.63, ctx.currentTime + 0.15);
+                    gain.gain.setValueAtTime(0.3, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.15);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.15);
+                }
+            } catch(e) {}
+        }
 
-            const total = qty * selectedStock.price;
+        function executeTrade() {
+            const qty = parseInt(document.getElementById('trade-qty-input').value) || 0;
+            if(qty <= 0) {
+                showToast('주문 수량을 입력하세요.', 'error');
+                return;
+            }
 
-            if (tradeType === "buy") {
-                if (userWallet.cash < total) return showToast("주문 가능 현금이 부족합니다.", "error");
+            const totalPrice = qty * selectedStock.price;
 
-                userWallet.cash -= total;
-                if (!userWallet.holdings[selectedStock.symbol]) {
-                    userWallet.holdings[selectedStock.symbol] = { qty: 0, avgPrice: 0 };
+            if(currentTradeType === 'buy') {
+                if(userAccount.cash < totalPrice) {
+                    showToast('주문 가능 현금이 부족합니다.', 'error');
+                    return;
+                }
+                userAccount.cash -= totalPrice;
+                
+                const existing = userAccount.holdings.find(h => h.id === selectedStock.id);
+                if(existing) {
+                    const newTotalCost = (existing.qty * existing.avgPrice) + totalPrice;
+                    existing.qty += qty;
+                    existing.avgPrice = Math.round(newTotalCost / existing.qty);
+                } else {
+                    userAccount.holdings.push({
+                        id: selectedStock.id,
+                        name: selectedStock.name,
+                        symbol: selectedStock.symbol,
+                        qty: qty,
+                        avgPrice: selectedStock.price
+                    });
                 }
 
-                const hold = userWallet.holdings[selectedStock.symbol];
-                const newTotalCost = (hold.qty * hold.avgPrice) + total;
-                hold.qty += qty;
-                hold.avgPrice = newTotalCost / hold.qty;
-
-                userWallet.transactions.unshift({
-                    type: "매수",
+                userAccount.transactions.unshift({
+                    type: 'buy',
+                    stockName: selectedStock.name,
                     symbol: selectedStock.symbol,
-                    name: selectedStock.name,
                     qty: qty,
                     price: selectedStock.price,
-                    time: new Date().toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' })
+                    date: new Date().toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit', second: '2-digit' })
                 });
 
-                playAppSound("trade");
-                showToast(`${selectedStock.name} ${qty}주 매수 체결되었습니다!`, "success");
+                playOrderSound('buy');
+                showToast(`${selectedStock.name} ${qty}주 매수 완료!`, 'success');
+
             } else {
-                const hold = userWallet.holdings[selectedStock.symbol];
-                if (!hold || hold.qty < qty) return showToast("매도 가능한 보유 수량이 부족합니다.", "error");
+                const holdingIdx = userAccount.holdings.findIndex(h => h.id === selectedStock.id);
+                if(holdingIdx === -1 || userAccount.holdings[holdingIdx].qty < qty) {
+                    showToast('매도 가능한 주식 수량이 부족합니다.', 'error');
+                    return;
+                }
 
-                userWallet.cash += total;
-                hold.qty -= qty;
-                if (hold.qty === 0) delete userWallet.holdings[selectedStock.symbol];
+                userAccount.holdings[holdingIdx].qty -= qty;
+                userAccount.cash += totalPrice;
 
-                userWallet.transactions.unshift({
-                    type: "매도",
+                if(userAccount.holdings[holdingIdx].qty === 0) {
+                    userAccount.holdings.splice(holdingIdx, 1);
+                }
+
+                userAccount.transactions.unshift({
+                    type: 'sell',
+                    stockName: selectedStock.name,
                     symbol: selectedStock.symbol,
-                    name: selectedStock.name,
                     qty: qty,
                     price: selectedStock.price,
-                    time: new Date().toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' })
+                    date: new Date().toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit', second: '2-digit' })
                 });
 
-                playAppSound("trade");
-                showToast(`${selectedStock.name} ${qty}주 매도 체결되었습니다!`, "success");
+                playOrderSound('sell');
+                showToast(`${selectedStock.name} ${qty}주 매도 완료!`, 'success');
             }
 
-            saveWallet();
+            saveAccountState();
+            updateHeaderBalances();
+            renderPortfolioView();
             closeTradeDrawer();
-            updateDetailView();
         }
 
-        function renderCommunityFeed() {
-            const container = document.getElementById("community-feed");
-            let html = "";
-            communityPosts.forEach(p => {
-                html += `
-                    <div class="p-3.5 bg-gray-50 dark:bg-toss-darkCard rounded-2xl border border-gray-100 dark:border-toss-darkBorder space-y-1.5">
-                        <div class="flex justify-between items-center text-xs">
-                            <span class="font-bold text-gray-900 dark:text-white flex items-center gap-1">
-                                <i class="fa-solid fa-circle-user text-gray-400"></i> ${p.user}
-                            </span>
-                            <span class="text-[10px] text-gray-400">${p.time}</span>
-                        </div>
-                        <p class="text-xs text-gray-700 dark:text-gray-300 leading-relaxed">${p.text}</p>
-                        <div class="flex justify-between items-center pt-1 text-[10px] text-gray-400">
-                            <span class="bg-blue-50 dark:bg-blue-950 text-toss-blue dark:text-blue-400 font-bold px-2 py-0.5 rounded-md">#${p.symbol}</span>
-                            <button onclick="likePost(${p.id})" class="flex items-center gap-1 hover:text-toss-red active-tap">
-                                <i class="fa-regular fa-heart"></i> 좋요 <span>${p.likes}</span>
-                            </button>
-                        </div>
-                    </div>
-                `;
-            });
-            container.innerHTML = html;
+        function saveAccountState() {
+            try {
+                localStorage.setItem('arit_user_account', JSON.stringify(userAccount));
+            } catch(e) {}
         }
 
-        function addCommunityPost() {
-            playAppSound("click");
-            const input = document.getElementById("community-input");
-            const text = input.value.trim();
-            if (!text) return;
+        function updateHeaderBalances() {
+            const all = [...stocksData.overseas, ...stocksData.domestic];
+            let holdingsEval = 0;
 
-            communityPosts.unshift({
-                id: Date.now(),
-                user: "나(주식초보)",
-                text: text,
-                time: "방금 전",
-                likes: 0,
-                symbol: selectedStock ? selectedStock.symbol : "종합"
+            userAccount.holdings.forEach(h => {
+                const liveStock = all.find(s => s.id === h.id);
+                const curPrice = liveStock ? liveStock.price : h.avgPrice;
+                holdingsEval += (h.qty * curPrice);
             });
 
-            input.value = "";
-            renderCommunityFeed();
-            showToast("게시글이 등록되었습니다.");
-        }
+            const totalEval = userAccount.cash + holdingsEval;
+            userAccount.totalAssets = totalEval;
 
-        function likePost(id) {
-            playAppSound("click");
-            const post = communityPosts.find(p => p.id === id);
-            if (post) {
-                post.likes++;
-                renderCommunityFeed();
-            }
-        }
-
-        function voteSentiment(dir) {
-            playAppSound("click");
-            showToast(dir === 'up' ? "상승에 투표하셨습니다!" : "하락에 투표하셨습니다!");
+            document.getElementById('header-total-asset').innerText = `${totalEval.toLocaleString()} 원`;
+            document.getElementById('header-cash').innerText = `${userAccount.cash.toLocaleString()} 원`;
         }
 
         function renderPortfolioView() {
+            updateHeaderBalances();
+            
             const all = [...stocksData.overseas, ...stocksData.domestic];
-            let totalEval = 0;
-            let totalCost = 0;
-            let holdingsHtml = "";
+            let holdingsEval = 0;
+            let holdingsBuyCost = 0;
 
-            const hKeys = Object.keys(userWallet.holdings);
-            document.getElementById("portfolio-stock-count").innerText = `${hKeys.length}개`;
+            userAccount.holdings.forEach(h => {
+                const liveStock = all.find(s => s.id === h.id);
+                const curPrice = liveStock ? liveStock.price : h.avgPrice;
+                holdingsEval += (h.qty * curPrice);
+                holdingsBuyCost += (h.qty * h.avgPrice);
+            });
 
-            hKeys.forEach(sym => {
-                const hold = userWallet.holdings[sym];
-                const st = all.find(s => s.symbol === sym);
-                if (!st) return;
+            const profitVal = holdingsEval - holdingsBuyCost;
+            const profitRate = holdingsBuyCost > 0 ? ((profitVal / holdingsBuyCost) * 100).toFixed(2) : '0.00';
+            const sign = profitVal >= 0 ? '+' : '';
 
-                const evalVal = st.price * hold.qty;
-                const costVal = hold.avgPrice * hold.qty;
-                const profit = evalVal - costVal;
-                const rate = ((profit / costVal) * 100).toFixed(1);
-                const isUp = profit >= 0;
+            document.getElementById('portfolio-eval-total').innerText = `${holdingsEval.toLocaleString()} 원`;
+            
+            const profitElem = document.getElementById('portfolio-total-profit');
+            profitElem.innerText = `${sign}${profitVal.toLocaleString()}원 (${sign}${profitRate}%)`;
+            profitElem.className = profitVal >= 0 ? 'font-bold text-amber-300' : 'font-bold text-cyan-300';
+            
+            document.getElementById('portfolio-stock-count').innerText = `${userAccount.holdings.length}개`;
 
-                totalEval += evalVal;
-                totalCost += costVal;
-
-                holdingsHtml += `
-                    <div onclick="selectStock('${st.symbol}')" class="p-3 bg-gray-50 dark:bg-toss-darkCard rounded-2xl border border-gray-100 dark:border-toss-darkBorder flex justify-between items-center cursor-pointer active-tap">
-                        <div class="flex items-center gap-2.5">
-                            <div class="w-8 h-8 rounded-xl flex items-center justify-center text-white font-bold text-xs" style="background-color: ${st.color}">
-                                <i class="${st.icon}"></i>
-                            </div>
-                            <div>
-                                <span class="font-extrabold text-xs text-gray-900 dark:text-white block">${st.name}</span>
-                                <span class="text-[10px] text-gray-400 font-semibold">${hold.qty}주 보유 • 평단가 ${Math.round(hold.avgPrice).toLocaleString()}원</span>
-                            </div>
-                        </div>
-                        <div class="text-right">
-                            <span class="font-black text-xs text-gray-900 dark:text-white block">${evalVal.toLocaleString()}원</span>
-                            <span class="text-[10px] font-bold ${isUp ? 'text-toss-red dark:text-red-400' : 'text-toss-blue dark:text-blue-400'}">${isUp ? '+' : ''}${rate}%</span>
-                        </div>
+            // Holdings List Rendering with Logos
+            const holdingsList = document.getElementById('portfolio-holdings-list');
+            if(userAccount.holdings.length === 0) {
+                holdingsList.innerHTML = `
+                    <div class="py-6 text-center text-gray-400 text-xs bg-gray-50 dark:bg-toss-darkCard rounded-2xl border border-gray-100 dark:border-toss-darkBorder">
+                        보유 중인 주식이 없습니다. 종목을 매수해 보세요!
                     </div>
                 `;
-            });
+            } else {
+                holdingsList.innerHTML = userAccount.holdings.map(h => {
+                    const liveStock = all.find(s => s.id === h.id) || { price: h.avgPrice, name: h.name, symbol: h.symbol };
+                    const currentVal = h.qty * liveStock.price;
+                    const costVal = h.qty * h.avgPrice;
+                    const diff = currentVal - costVal;
+                    const rate = ((diff / costVal) * 100).toFixed(2);
+                    const isPlus = diff >= 0;
+                    const diffSign = isPlus ? '+' : '';
+                    const rateColor = isPlus ? 'text-toss-red dark:text-red-400' : 'text-toss-blue dark:text-blue-400';
+                    const logoHtml = getStockLogoHtml(liveStock, 'w-9 h-9');
 
-            document.getElementById("portfolio-eval-total").innerText = totalEval.toLocaleString() + " 원";
-            const totalProfit = totalEval - totalCost;
-            const totalRate = totalCost > 0 ? ((totalProfit / totalCost) * 100).toFixed(1) : "0.0";
-            document.getElementById("portfolio-total-profit").innerText = `${totalProfit >= 0 ? '+' : ''}${totalProfit.toLocaleString()}원 (${totalRate}%)`;
-            document.getElementById("portfolio-holdings-list").innerHTML = holdingsHtml || `<p class="text-xs text-gray-400 py-4 text-center">보유 주식이 없습니다.</p>`;
-
-            // Render Transaction Log
-            let txHtml = "";
-            userWallet.transactions.slice(0, 5).forEach(tx => {
-                const isBuy = tx.type === "매수";
-                txHtml += `
-                    <div class="p-2.5 bg-gray-50 dark:bg-toss-darkCard rounded-xl border border-gray-100 dark:border-toss-darkBorder flex justify-between items-center">
-                        <div class="flex items-center gap-2">
-                            <span class="px-1.5 py-0.5 rounded text-[9px] font-black ${isBuy ? 'bg-red-100 text-toss-red' : 'bg-blue-100 text-toss-blue'}">${tx.type}</span>
-                            <span class="font-bold text-gray-800 dark:text-gray-200">${tx.name}</span>
+                    return `
+                        <div onclick="selectAndGoToDetail('${h.id}')" class="p-3 bg-gray-50 dark:bg-toss-darkCard rounded-2xl border border-gray-100 dark:border-toss-darkBorder flex justify-between items-center cursor-pointer active-tap">
+                            <div class="flex items-center gap-2.5">
+                                ${logoHtml}
+                                <div>
+                                    <div class="font-extrabold text-xs text-gray-900 dark:text-white flex items-center gap-1">
+                                        ${h.name}
+                                        <span class="text-[9px] text-gray-400 font-normal">(${h.qty}주)</span>
+                                    </div>
+                                    <div class="text-[10px] text-gray-400">평단: ${h.avgPrice.toLocaleString()}원</div>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <div class="font-black text-xs text-gray-900 dark:text-white">${currentVal.toLocaleString()}원</div>
+                                <div class="text-[10px] font-bold ${rateColor}">${diffSign}${diff.toLocaleString()}원 (${diffSign}${rate}%)</div>
+                            </div>
                         </div>
-                        <span class="text-gray-400">${tx.qty}주 (${tx.price.toLocaleString()}원)</span>
-                    </div>
-                `;
-            });
-            document.getElementById("transaction-log-list").innerHTML = txHtml || `<p class="text-xs text-gray-400 text-center py-2">거래 내역이 없습니다.</p>`;
-
-            renderPieChart();
-        }
-
-        function renderPieChart() {
-            const ctx = document.getElementById("portfolioPieCanvas")?.getContext("2d");
-            if (!ctx) return;
-
-            if (activePieObj) activePieObj.destroy();
-
-            const hKeys = Object.keys(userWallet.holdings);
-            const all = [...stocksData.overseas, ...stocksData.domestic];
-            const labels = hKeys.map(k => all.find(s => s.symbol === k)?.name || k);
-            const data = hKeys.map(k => {
-                const st = all.find(s => s.symbol === k);
-                return st ? st.price * userWallet.holdings[k].qty : 0;
-            });
-
-            if (data.length === 0) {
-                labels.push("현금");
-                data.push(userWallet.cash);
+                    `;
+                }).join('');
             }
 
-            activePieObj = new Chart(ctx, {
+            // Transaction History Rendering
+            const txList = document.getElementById('transaction-log-list');
+            if(userAccount.transactions.length === 0) {
+                txList.innerHTML = `<div class="text-gray-400 text-[11px] py-2 text-center">매매 내역이 없습니다.</div>`;
+            } else {
+                txList.innerHTML = userAccount.transactions.slice(0, 5).map(tx => `
+                    <div class="p-2.5 bg-gray-50 dark:bg-toss-darkCard rounded-xl border border-gray-100 dark:border-toss-darkBorder flex justify-between items-center">
+                        <div class="flex items-center gap-2">
+                            <span class="px-1.5 py-0.5 rounded text-[9px] font-black text-white ${tx.type === 'buy' ? 'bg-toss-red' : 'bg-toss-blue'}">
+                                ${tx.type === 'buy' ? '매수' : '매도'}
+                            </span>
+                            <span class="font-bold text-gray-900 dark:text-white text-xs">${tx.stockName} (${tx.qty}주)</span>
+                        </div>
+                        <div class="text-right">
+                            <span class="font-extrabold text-gray-900 dark:text-white block">${(tx.qty * tx.price).toLocaleString()}원</span>
+                            <span class="text-[9px] text-gray-400">${tx.date}</span>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            renderPortfolioPie();
+        }
+
+        function renderPortfolioPie() {
+            const ctx = document.getElementById('portfolioPieCanvas').getContext('2d');
+            if(pieChartInstance) pieChartInstance.destroy();
+
+            const labels = userAccount.holdings.map(h => h.name);
+            const data = userAccount.holdings.map(h => {
+                const all = [...stocksData.overseas, ...stocksData.domestic];
+                const liveStock = all.find(s => s.id === h.id);
+                return h.qty * (liveStock ? liveStock.price : h.avgPrice);
+            });
+
+            if(userAccount.cash > 0) {
+                labels.push('현금');
+                data.push(userAccount.cash);
+            }
+
+            pieChartInstance = new Chart(ctx, {
                 type: 'doughnut',
                 data: {
                     labels: labels,
                     datasets: [{
                         data: data,
-                        backgroundColor: ['#3182f6', '#f04452', '#30b058', '#f59e0b', '#8b5cf6', '#ec4899']
+                        backgroundColor: ['#3182f6', '#f04452', '#30b058', '#f59e0b', '#8b5cf6', '#ec4899', '#64748b'],
+                        borderWidth: 0
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: { legend: { position: 'right', labels: { boxWidth: 10, font: { size: 10 } } } }
+                    plugins: {
+                        legend: { position: 'right', labels: { boxWidth: 10, font: { size: 10 } } }
+                    },
+                    cutout: '68%'
                 }
             });
         }
 
-        function toggleDarkMode() {
-            playAppSound("click");
-            const html = document.documentElement;
-            html.classList.toggle("dark");
-            const isDark = html.classList.contains("dark");
-            const check = document.getElementById("toggle-dark-check");
-            if (check) check.checked = isDark;
-            showToast(`${isDark ? '다크' : '라이트'} 모드로 변경되었습니다.`);
-        }
-
-        function toggleFavorite() {
-            playAppSound("click");
-            if (!selectedStock) return;
-            const idx = userWallet.favorites.indexOf(selectedStock.symbol);
-            if (idx >= 0) {
-                userWallet.favorites.splice(idx, 1);
-                showToast("관심종목에서 해제되었습니다.");
-            } else {
-                userWallet.favorites.push(selectedStock.symbol);
-                showToast("관심종목에 추가되었습니다.");
+        // INITIAL COMMUNITY POSTS FEED
+        let communityPosts = [
+            {
+                id: 1, stockId: 'NVDA', author: 'AI반도체올인', badge: '주주 3년차',
+                text: '엔비디아 이번 분기 실적 및 블랙웰 수주 모멘텀 실화냐? 목표가 250달러까지 계속 홀딩 가봅니다 🔥',
+                time: '10분 전', likes: 42, comments: 8
+            },
+            {
+                id: 2, stockId: '005930', author: '삼전가즈아', badge: '수익률 +28%',
+                text: '삼성전자 HBM3E 공급 본격화 소식 들리네요. 국내 반도체 종목들 든든합니다 🚀',
+                time: '25분 전', likes: 19, comments: 3
+            },
+            {
+                id: 3, stockId: 'TSLA', author: '서학개미일기', badge: '테슬라 탑승',
+                text: 'FSD V13 자율주행 성능 발전 속도가 미쳤네요. 조정 나올 때마다 꾸준히 적립식으로 모아가는 중!',
+                time: '1시간 전', likes: 35, comments: 12
             }
-            saveWallet();
-            updateDetailView();
-        }
+        ];
 
-        function toggleLiveTicker(enable) {
-            if (enable) {
-                if (tickerInterval) clearInterval(tickerInterval);
-                tickerInterval = setInterval(simulateMarketTicks, 2500);
-            } else if (tickerInterval) {
-                clearInterval(tickerInterval);
-            }
-        }
-
-        function simulateMarketTicks() {
+        function renderCommunityFeed() {
+            const feed = document.getElementById('community-feed');
             const all = [...stocksData.overseas, ...stocksData.domestic];
-            const target = all[Math.floor(Math.random() * all.length)];
-            const deltaPct = (Math.random() * 0.8 - 0.4);
-            const priceDelta = Math.round(target.price * (deltaPct / 100));
 
-            if (priceDelta === 0) return;
+            feed.innerHTML = communityPosts.map(post => {
+                const s = all.find(st => st.id === post.stockId) || selectedStock;
+                const logoHtml = getStockLogoHtml(s, 'w-7 h-7');
 
-            target.price = Math.max(100, target.price + priceDelta);
-            target.change += deltaPct / 10;
+                return `
+                    <div class="pt-3 pb-1 space-y-2">
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center gap-2">
+                                ${logoHtml}
+                                <div>
+                                    <span class="font-extrabold text-xs text-gray-900 dark:text-white block leading-none">${post.author}</span>
+                                    <span class="text-[9px] text-toss-blue font-bold">${post.badge} • ${s.name}</span>
+                                </div>
+                            </div>
+                            <span class="text-[10px] text-gray-400">${post.time}</span>
+                        </div>
+                        <p class="text-xs text-gray-800 dark:text-gray-200 leading-relaxed font-normal">${post.text}</p>
+                        <div class="flex items-center gap-4 text-xs text-gray-400 pt-1">
+                            <button onclick="likePost(${post.id})" class="hover:text-toss-red flex items-center gap-1 active-tap">
+                                <i class="fa-regular fa-heart text-xs"></i> <span>${post.likes}</span>
+                            </button>
+                            <span class="flex items-center gap-1">
+                                <i class="fa-regular fa-comment text-xs"></i> <span>${post.comments}</span>
+                            </span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
 
-            const el = document.getElementById(`list-price-${target.symbol}`);
-            if (el) {
-                el.innerText = target.price.toLocaleString() + "원";
-                el.classList.remove("flash-up", "flash-down");
-                void el.offsetWidth;
-                el.classList.add(priceDelta > 0 ? "flash-up" : "flash-down");
+        function addCommunityPost() {
+            const input = document.getElementById('community-input');
+            const val = input.value.trim();
+            if(!val) {
+                showToast('글 내용을 입력해주세요.', 'error');
+                return;
             }
 
-            if (selectedStock && selectedStock.symbol === target.symbol) {
-                updateDetailView();
-            }
+            communityPosts.unshift({
+                id: Date.now(),
+                stockId: selectedStock.id,
+                author: '나 (개미가즈아)',
+                badge: '실시간 작성자',
+                text: val,
+                time: '방금 전',
+                likes: 0,
+                comments: 0
+            });
 
-            updateHeaderUI();
+            input.value = '';
+            renderCommunityFeed();
+            showToast('커뮤니티 글이 작성되었습니다!', 'success');
+        }
+
+        function likePost(id) {
+            const p = communityPosts.find(post => post.id === id);
+            if(p) {
+                p.likes += 1;
+                renderCommunityFeed();
+            }
         }
 
         function triggerAIAnalysis() {
-            playAppSound("click");
-            showToast("🤖 Gemini AI가 시장 데이터를 실시간 진단 중입니다...");
+            const s = selectedStock;
+            document.getElementById('ai-stock-title').innerText = `${s.name} (${s.symbol})`;
+            document.getElementById('ai-stock-subtitle').innerText = `${s.sector} 섹터 • 시총 ${s.mcap}`;
+            document.getElementById('ai-modal-stock-logo').innerHTML = getStockLogoHtml(s, 'w-9 h-9');
+
+            const isGainer = s.change >= 0;
+            const signalText = isGainer ? '강력 매수 (Bullish)' : '단기 조정 후 재반등 기대 (Neutral-Bull)';
+
+            document.getElementById('ai-analysis-content').innerHTML = `
+                <div class="flex items-center justify-between font-bold text-gray-900 dark:text-white pb-1 border-b border-blue-200/50 dark:border-blue-900">
+                    <span>AI 종합 투자 시그널</span>
+                    <span class="${isGainer ? 'text-toss-red' : 'text-toss-blue'} font-black">${signalText}</span>
+                </div>
+                <p>📊 <strong>기술적 분석:</strong> 현재 가격(${s.price.toLocaleString()}원)은 52주 최고가(${s.high52.toLocaleString()}원) 대비 안정적인 지지선을 형성하고 있으며, 이동평균선 정배열 상태를 유지 중입니다.</p>
+                <p>💡 <strong>밸류에이션:</strong> PER ${s.per}배 수준으로 동일 ${s.sector} 섹터 대비 미래 성장 잠재력이 우수하며 기관 순매수세가 유입되고 있습니다.</p>
+                <p>🎯 <strong>AI 추천 목표가:</strong> <span class="font-extrabold text-toss-blue">${Math.round(s.price * 1.22).toLocaleString()}원</span> (+22% 상승 여력)</p>
+            `;
+
+            const modal = document.getElementById('ai-modal');
+            const card = document.getElementById('ai-modal-card');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            card.classList.remove('scale-95');
+        }
+
+        function closeAIModal() {
+            const modal = document.getElementById('ai-modal');
+            const card = document.getElementById('ai-modal-card');
+            card.classList.add('scale-95');
             setTimeout(() => {
-                showToast("AI 진단 결과: 현재 기술주 중심의 강력한 매수세 유입 중!");
-            }, 1500);
+                modal.classList.add('opacity-0', 'pointer-events-none');
+            }, 150);
         }
 
-        function resetVirtualAccount() {
-            playAppSound("click");
-            userWallet = { cash: 10000000, holdings: {}, favorites: ["AAPL", "005930"], transactions: [] };
-            saveWallet();
-            showToast("가상 계좌 자산이 1,000만원으로 초기화되었습니다.");
-            renderPortfolioView();
-        }
-
-        function setAppIconTheme(themeKey, notify = true) {
-            const theme = appIconThemes[themeKey];
-            if (!theme) return;
-
-            currentAppIconTheme = themeKey;
-            localStorage.setItem("arit_app_icon_theme", themeKey);
-
-            // Update Header Icon Badge
-            const headerBadge = document.getElementById("header-app-icon-badge");
-            const headerSymbol = document.getElementById("header-app-icon-symbol");
-            if (headerBadge && headerSymbol) {
-                headerBadge.className = `w-8 h-8 rounded-2xl ${theme.bgClass} flex items-center justify-center text-white text-sm font-black shadow-md border ${theme.borderClass} active-tap cursor-pointer relative group`;
-                headerSymbol.className = theme.iconClass;
-                if (themeKey === 'dark-cyber') {
-                    headerSymbol.style.color = "#06b6d4";
-                } else if (themeKey === 'luxury-gold') {
-                    headerSymbol.style.color = "#0f172a";
-                } else {
-                    headerSymbol.style.color = "white";
-                }
-            }
-
-            // Update Modal Home Screen Preview App Icon
-            const previewBox = document.getElementById("modal-preview-app-icon");
-            const previewSymbol = document.getElementById("modal-preview-icon-symbol");
-            if (previewBox && previewSymbol) {
-                previewBox.className = `w-12 h-12 rounded-[16px] ${theme.bgClass} flex items-center justify-center text-xl shadow-lg ${theme.shadowClass} border ${theme.borderClass} transition-all duration-300`;
-                previewSymbol.className = theme.iconClass;
-                if (themeKey === 'dark-cyber') {
-                    previewSymbol.style.color = "#06b6d4";
-                } else if (themeKey === 'luxury-gold') {
-                    previewSymbol.style.color = "#0f172a";
-                } else {
-                    previewSymbol.style.color = "white";
-                }
-            }
-
-            // Update Dynamic SVG Favicon & Apple Touch Icon Meta Tag
-            const svgContent = `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='28' fill='${encodeURIComponent(theme.color)}'/><path d='M30 68 L45 42 L60 52 L75 28' stroke='white' stroke-width='8' stroke-linecap='round' stroke-linejoin='round' fill='none'/><circle cx='75' cy='28' r='5' fill='%2330b058'/></svg>`;
-            
-            const dynamicFavicon = document.getElementById("dynamic-favicon");
-            const dynamicAppleIcon = document.getElementById("dynamic-apple-icon");
-            const metaTheme = document.getElementById("meta-theme-color");
-
-            if (dynamicFavicon) dynamicFavicon.href = svgContent;
-            if (dynamicAppleIcon) dynamicAppleIcon.href = svgContent;
-            if (metaTheme) metaTheme.content = theme.color;
-
-            if (notify) {
-                playAppSound("click");
-                showToast(`📱 앱 아이콘 스타일이 [${theme.name}]로 변경되었습니다!`);
-            }
-        }
-
+        // APP ICON MODAL HANDLERS
         function openIconInstallModal() {
-            playAppSound("click");
-            const modal = document.getElementById("icon-install-modal");
-            const card = document.getElementById("icon-modal-card");
-            modal.classList.remove("opacity-0", "pointer-events-none");
-            card.classList.remove("scale-95");
-            card.classList.add("scale-100");
+            const modal = document.getElementById('icon-install-modal');
+            const card = document.getElementById('icon-modal-card');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            card.classList.remove('scale-95');
         }
 
         function closeIconInstallModal() {
-            playAppSound("click");
-            const modal = document.getElementById("icon-install-modal");
-            const card = document.getElementById("icon-modal-card");
-            card.classList.remove("scale-100");
-            card.classList.add("scale-95");
+            const modal = document.getElementById('icon-install-modal');
+            const card = document.getElementById('icon-modal-card');
+            card.classList.add('scale-95');
             setTimeout(() => {
-                modal.classList.add("opacity-0", "pointer-events-none");
-            }, 200);
+                modal.classList.add('opacity-0', 'pointer-events-none');
+            }, 150);
         }
 
+        function setAppIconTheme(theme) {
+            const headerIconBadge = document.getElementById('header-app-icon-badge');
+            const modalPreviewIcon = document.getElementById('modal-preview-app-icon');
+            const headerSymbol = document.getElementById('header-app-icon-symbol');
+            const previewSymbol = document.getElementById('modal-preview-icon-symbol');
+
+            let bgClass = "w-8 h-8 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-500 text-white flex items-center justify-center text-sm font-black shadow-md border border-white/20 active-tap cursor-pointer relative group";
+            let previewBg = "w-11 h-11 rounded-[16px] bg-gradient-to-tr from-blue-600 to-indigo-500 text-white flex items-center justify-center text-lg shadow-lg shadow-blue-500/30 border border-white/20 transition-all duration-300";
+            let iconClass = "fa-solid fa-chart-pie";
+
+            if(theme === 'dark-cyber') {
+                bgClass = "w-8 h-8 rounded-2xl bg-gradient-to-tr from-gray-900 via-gray-800 to-black text-cyan-400 flex items-center justify-center text-sm font-black shadow-md border border-cyan-500/40 active-tap cursor-pointer relative group";
+                previewBg = "w-11 h-11 rounded-[16px] bg-gradient-to-tr from-gray-900 via-gray-800 to-black text-cyan-400 flex items-center justify-center text-lg shadow-lg shadow-cyan-500/30 border border-cyan-500/40 transition-all duration-300";
+                iconClass = "fa-solid fa-bolt";
+            } else if(theme === 'neon-green') {
+                bgClass = "w-8 h-8 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-400 text-white flex items-center justify-center text-sm font-black shadow-md border border-white/20 active-tap cursor-pointer relative group";
+                previewBg = "w-11 h-11 rounded-[16px] bg-gradient-to-tr from-emerald-600 to-teal-400 text-white flex items-center justify-center text-lg shadow-lg shadow-emerald-500/30 border border-white/20 transition-all duration-300";
+                iconClass = "fa-solid fa-chart-line";
+            } else if(theme === 'luxury-gold') {
+                bgClass = "w-8 h-8 rounded-2xl bg-gradient-to-tr from-amber-600 via-amber-500 to-yellow-300 text-gray-950 flex items-center justify-center text-sm font-black shadow-md border border-yellow-200/40 active-tap cursor-pointer relative group";
+                previewBg = "w-11 h-11 rounded-[16px] bg-gradient-to-tr from-amber-600 via-amber-500 to-yellow-300 text-gray-950 flex items-center justify-center text-lg shadow-lg shadow-amber-500/30 border border-yellow-200/40 transition-all duration-300";
+                iconClass = "fa-solid fa-crown";
+            } else if(theme === 'sunset-red') {
+                bgClass = "w-8 h-8 rounded-2xl bg-gradient-to-tr from-rose-600 to-orange-400 text-white flex items-center justify-center text-sm font-black shadow-md border border-white/20 active-tap cursor-pointer relative group";
+                previewBg = "w-11 h-11 rounded-[16px] bg-gradient-to-tr from-rose-600 to-orange-400 text-white flex items-center justify-center text-lg shadow-lg shadow-rose-500/30 border border-white/20 transition-all duration-300";
+                iconClass = "fa-solid fa-fire";
+            }
+
+            headerIconBadge.className = bgClass;
+            modalPreviewIcon.className = previewBg;
+            headerSymbol.className = iconClass;
+            previewSymbol.className = iconClass;
+
+            showToast(`앱 아이콘 스타일 변경 완료!`, 'info');
+        }
+
+        // QR MODAL HANDLERS
         function openQRModal() {
-            playAppSound("click");
-            const modal = document.getElementById("qr-modal");
-            const card = document.getElementById("qr-modal-card");
-            modal.classList.remove("opacity-0", "pointer-events-none");
-            card.classList.remove("scale-95");
-            card.classList.add("scale-100");
+            const modal = document.getElementById('qr-modal');
+            const card = document.getElementById('qr-modal-card');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            card.classList.remove('scale-95');
         }
 
         function closeQRModal() {
-            playAppSound("click");
-            const modal = document.getElementById("qr-modal");
-            const card = document.getElementById("qr-modal-card");
-            card.classList.remove("scale-100");
-            card.classList.add("scale-95");
+            const modal = document.getElementById('qr-modal');
+            const card = document.getElementById('qr-modal-card');
+            card.classList.add('scale-95');
             setTimeout(() => {
-                modal.classList.add("opacity-0", "pointer-events-none");
-            }, 200);
+                modal.classList.add('opacity-0', 'pointer-events-none');
+            }, 150);
         }
 
         function copyAppUrl() {
-            playAppSound("click");
-            const url = "https://ati-all.github.io/arit/";
-            const tempInput = document.createElement("input");
-            tempInput.value = url;
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            document.execCommand("copy");
-            document.body.removeChild(tempInput);
-            showToast("앱 주소가 클립보드에 복사되었습니다!");
+            navigator.clipboard.writeText('https://ati-all.github.io/arit/').then(() => {
+                showToast('Arit MTS 접속 주소가 복사되었습니다!', 'success');
+            }).catch(() => {
+                showToast('주소 복사에 실패했습니다.', 'error');
+            });
         }
 
-        function showToast(msg, type = "info") {
-            const banner = document.getElementById("toast-banner");
-            const text = document.getElementById("toast-msg");
-            const icon = document.getElementById("toast-icon");
+        // DARK MODE TOGGLE
+        function toggleDarkMode() {
+            const isDark = document.documentElement.classList.toggle('dark');
+            document.getElementById('meta-theme-color').setAttribute('content', isDark ? '#101418' : '#3182f6');
+            const check = document.getElementById('toggle-dark-check');
+            if(check) check.checked = isDark;
+            renderStockChart();
+        }
 
-            text.innerText = msg;
-            if (type === "success") {
-                icon.className = "fa-solid fa-circle-check text-green-400 text-sm";
-            } else if (type === "error") {
-                icon.className = "fa-solid fa-triangle-exclamation text-red-400 text-sm";
-            } else {
-                icon.className = "fa-solid fa-circle-info text-toss-blue text-sm";
+        // VIEW NAVIGATION ROUTER
+        function navigateTo(pageId) {
+            const screens = document.querySelectorAll('.app-screen');
+            screens.forEach(s => {
+                s.classList.add('translate-x-full');
+            });
+
+            const target = document.getElementById(`view-${pageId}`);
+            if(target) {
+                target.classList.remove('translate-x-full');
             }
 
-            banner.classList.remove("opacity-0", "pointer-events-none");
-            banner.classList.add("opacity-100");
+            // Update Nav Icons
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.className = "nav-btn flex flex-col items-center text-gray-400 hover:text-gray-700 dark:hover:text-gray-200";
+            });
+            const activeNav = document.getElementById(`nav-${pageId}`);
+            if(activeNav) {
+                activeNav.className = "nav-btn flex flex-col items-center text-toss-blue font-bold";
+            }
+
+            if(pageId === 'portfolio') {
+                renderPortfolioView();
+            }
+        }
+
+        // REAL-TIME TICK SIMULATOR
+        function startLiveTickerLoop() {
+            if(liveTickerTimer) clearInterval(liveTickerTimer);
+            liveTickerTimer = setInterval(() => {
+                const all = [...stocksData.overseas, ...stocksData.domestic];
+                const randIndex = Math.floor(Math.random() * all.length);
+                const targetStock = all[randIndex];
+                
+                const deltaPct = (Math.random() * 0.8 - 0.38); // -0.38% ~ +0.42%
+                const deltaPrice = Math.round(targetStock.price * (deltaPct / 100));
+                
+                targetStock.price = Math.max(100, targetStock.price + deltaPrice);
+                targetStock.changeVal += deltaPrice;
+                targetStock.change += deltaPct;
+
+                if(targetStock.chartData) {
+                    targetStock.chartData.push(targetStock.price);
+                    if(targetStock.chartData.length > 12) targetStock.chartData.shift();
+                }
+
+                // If currently viewing this detail stock, refresh UI
+                if(selectedStock.id === targetStock.id) {
+                    renderDetailView();
+                }
+
+                renderStockList();
+                updateHeaderBalances();
+            }, 2000);
+        }
+
+        function toggleLiveTicker(enabled) {
+            if(enabled) startLiveTickerLoop();
+            else if(liveTickerTimer) clearInterval(liveTickerTimer);
+        }
+
+        function resetVirtualAccount() {
+            userAccount = {
+                totalAssets: 10000000,
+                cash: 10000000,
+                holdings: [],
+                transactions: []
+            };
+            saveAccountState();
+            updateHeaderBalances();
+            renderPortfolioView();
+            showToast('가상 계좌가 1,000만원으로 초기화되었습니다.', 'info');
+        }
+
+        function voteSentiment(dir) {
+            const bullBar = document.getElementById('bullish-bar');
+            const bearBar = document.getElementById('bearish-bar');
+            const bullPct = document.getElementById('bull-pct');
+            const bearPct = document.getElementById('bear-pct');
+
+            if(dir === 'up') {
+                bullBar.style.width = '86%';
+                bearBar.style.width = '14%';
+                bullPct.innerText = '86%';
+                bearPct.innerText = '14%';
+                showToast('상승에 투표하셨습니다 📈', 'success');
+            } else {
+                bullBar.style.width = '78%';
+                bearBar.style.width = '22%';
+                bullPct.innerText = '78%';
+                bearPct.innerText = '22%';
+                showToast('하락에 투표하셨습니다 📉', 'info');
+            }
+        }
+
+        // FLOATING TOAST NOTIFICATION SYSTEM
+        function showToast(msg, type = 'info') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            
+            let icon = '<i class="fa-solid fa-circle-info text-blue-500"></i>';
+            if(type === 'success') icon = '<i class="fa-solid fa-circle-check text-green-500"></i>';
+            if(type === 'error') icon = '<i class="fa-solid fa-circle-exclamation text-red-500"></i>';
+
+            toast.className = `p-3 bg-gray-900/90 dark:bg-white/95 backdrop-blur-md text-white dark:text-gray-900 text-xs font-bold rounded-2xl shadow-xl flex items-center gap-2 transform transition-all duration-300 translate-y-[-10px] opacity-0 border border-white/10`;
+            toast.innerHTML = `${icon} <span>${msg}</span>`;
+
+            container.appendChild(toast);
 
             setTimeout(() => {
-                banner.classList.remove("opacity-100");
-                banner.classList.add("opacity-0", "pointer-events-none");
-            }, 2500);
+                toast.classList.remove('translate-y-[-10px]', 'opacity-0');
+            }, 10);
+
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-[-10px]');
+                setTimeout(() => toast.remove(), 300);
+            }, 2600);
         }
     </script>
 </body>
